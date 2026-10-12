@@ -1,0 +1,2147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KPMG Smart Campus Analytics - AI Student Success Platform</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            kpmg: {
+              blue: '#00338D',
+              navy: '#0C2340',
+              lightBlue: '#0091DA',
+              cobalt: '#005EB8',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- React & ReactDOM CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <!-- Babel for inline JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-blue-600 selection:text-white">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useMemo } = React;
+
+    // Multi-source unified student dataset (Rich 12 Profiles covering all years & tracks)
+    const mockStudents = [
+      {
+        id: "STU-1001",
+        name: "Aarav Sharma",
+        rollNo: "21CS042",
+        major: "Computer Science",
+        year: "4th Year",
+        semester: 7,
+        gender: "Male",
+        successScore: 88,
+        riskScore: 12,
+        riskLevel: "Low",
+        segment: "All-Round Performer",
+        interventionCategory: "Mentorship Required",
+        cgpa: 8.92,
+        attendanceRate: 94,
+        assignmentCompletionRate: 98,
+        engagementScore: 92,
+        metrics: { academic: 90, attendance: 94, lmsEngagement: 92, placementReadiness: 86, skillsAssessment: 82 },
+        whyFlagged: "Candidate is in the top 5% of the university cohort with steady 8.9+ CGPA. Flagged solely for proactive Tier-1 placement corporate mentorship to polish group discussion & soft skills.",
+        positiveDrivers: [
+          { factor: "High LMS Turnaround", impact: "+16 pts", description: "Top 5% portal activity & 100% assignment completion" },
+          { factor: "Strong Academic CGPA", impact: "+14 pts", description: "Maintained 8.9+ CGPA across 6 semesters" },
+          { factor: "Placement Preparedness", impact: "+10 pts", description: "Cleared 4/4 mock technical interviews" },
+        ],
+        riskDrivers: [
+          { factor: "Minor Soft-Skills Gap", impact: "-4 pts", description: "Group discussion evaluation slightly below cohort average" },
+        ],
+        recommendedInterventions: [
+          { id: "INT-101", title: "Executive Leadership Mentorship", category: "Mentorship Required", urgency: "Medium", action: "Assign KPMG Mentor", status: "In Progress" },
+          { id: "INT-102", title: "Nominate for Tier-1 Corporate Placement Drive", category: "Mentorship Required", urgency: "Low", action: "Fast-Track Placement", status: "Completed" }
+        ]
+      },
+      {
+        id: "STU-1002",
+        name: "Ananya Iyer",
+        rollNo: "21EC019",
+        major: "Electronics & Comm",
+        year: "4th Year",
+        semester: 7,
+        gender: "Female",
+        successScore: 78,
+        riskScore: 32,
+        riskLevel: "Medium",
+        segment: "High Academic - Low Placement",
+        interventionCategory: "Coding/Technical Bootcamp",
+        cgpa: 8.75,
+        attendanceRate: 88,
+        assignmentCompletionRate: 92,
+        engagementScore: 84,
+        metrics: { academic: 89, attendance: 88, lmsEngagement: 84, placementReadiness: 52, skillsAssessment: 68 },
+        whyFlagged: "High academic performer (8.75 CGPA) struggling with placement assessments: failed last 2 coding rounds and missed 3 consecutive mock behavioral interviews.",
+        positiveDrivers: [
+          { factor: "High Theory CGPA", impact: "+18 pts", description: "Consistent 8.75 CGPA with zero backlogs" },
+          { factor: "Reliable Attendance", impact: "+12 pts", description: "88% physical and laboratory attendance" },
+        ],
+        riskDrivers: [
+          { factor: "Low Mock Interview Attendance", impact: "-18 pts", description: "Missed 3 consecutive mock behavioral interviews" },
+          { factor: "Low Coding Assessment Score", impact: "-12 pts", description: "Scored 44/100 in recent campus coding benchmark" },
+        ],
+        recommendedInterventions: [
+          { id: "INT-201", title: "Fast-Track Coding Bootcamp", category: "Coding/Technical Bootcamp", urgency: "High", action: "Activate Bootcamp Track", status: "Pending" },
+          { id: "INT-202", title: "1-on-1 Behavioral Coaching", category: "Mentorship Required", urgency: "High", action: "Schedule Slot", status: "Pending" }
+        ]
+      },
+      {
+        id: "STU-1003",
+        name: "Rohan Verma",
+        rollNo: "21CS088",
+        major: "Computer Science",
+        year: "4th Year",
+        semester: 7,
+        gender: "Male",
+        successScore: 42,
+        riskScore: 78,
+        riskLevel: "High",
+        segment: "Disengaged / LMS Inactivity",
+        interventionCategory: "Attendance Recovery",
+        cgpa: 6.10,
+        attendanceRate: 64,
+        assignmentCompletionRate: 46,
+        engagementScore: 31,
+        metrics: { academic: 58, attendance: 64, lmsEngagement: 31, placementReadiness: 38, skillsAssessment: 45 },
+        whyFlagged: "CRITICAL RISK: Attendance (64%) is 11% below university mandatory examination quorum. Combined with 21 consecutive days of zero LMS logins and 4 unsubmitted assignments, student faces imminent debarment.",
+        positiveDrivers: [
+          { factor: "Active Extracurriculars", impact: "+6 pts", description: "Core member of campus cultural fest committee" },
+        ],
+        riskDrivers: [
+          { factor: "Severe LMS Inactivity", impact: "-24 pts", description: "Zero LMS logins in the last 21 consecutive days" },
+          { factor: "Attendance Below Threshold", impact: "-18 pts", description: "64% attendance risks semester exam debarment" },
+          { factor: "Pending Lab Backlogs", impact: "-14 pts", description: "4 mid-term lab assignments unsubmitted" },
+        ],
+        recommendedInterventions: [
+          { id: "INT-301", title: "Attendance Recovery Makeup Contract", category: "Attendance Recovery", urgency: "Immediate", action: "Generate Makeup Contract", status: "Pending" },
+          { id: "INT-302", title: "Dean-Parent Counseling Hearing", category: "Mentorship Required", urgency: "Immediate", action: "Dispatch Summons", status: "Pending" },
+          { id: "INT-303", title: "Remedial LMS Assignment Catch-Up", category: "Academic Support", urgency: "High", action: "Assign Module", status: "In Progress" }
+        ]
+      },
+      {
+        id: "STU-1004",
+        name: "Priya Nair",
+        rollNo: "22IT015",
+        major: "Information Tech",
+        year: "3rd Year",
+        semester: 5,
+        gender: "Female",
+        successScore: 54,
+        riskScore: 58,
+        riskLevel: "Medium",
+        segment: "Placement Ready - Academic Decline",
+        interventionCategory: "Academic Support",
+        cgpa: 6.85,
+        attendanceRate: 72,
+        assignmentCompletionRate: 68,
+        engagementScore: 58,
+        metrics: { academic: 62, attendance: 72, lmsEngagement: 58, placementReadiness: 84, skillsAssessment: 80 },
+        whyFlagged: "Candidate is active in hackathons and competitive coding (top 10%), but internal exam scores have sharply fallen: scored 11/30 in mid-term DBMS and attendance dropped to 72%.",
+        positiveDrivers: [
+          { factor: "High Placement Preparedness", impact: "+20 pts", description: "Top 10% in campus competitive coding" },
+          { factor: "Hackathon Winner", impact: "+12 pts", description: "Won 2 national level hackathons" },
+        ],
+        riskDrivers: [
+          { factor: "Internal Assessment Drop", impact: "-16 pts", description: "Scored 11/30 in Advanced Database Midterm" },
+          { factor: "Borderline Attendance", impact: "-10 pts", description: "Attendance slipped to 72% this semester" },
+        ],
+        recommendedInterventions: [
+          { id: "INT-401", title: "Faculty Tutoring in Database Systems", category: "Academic Support", urgency: "High", action: "Assign Tutor", status: "Pending" },
+          { id: "INT-402", title: "Balancing Academics & Competitions", category: "Mentorship Required", urgency: "Medium", action: "Faculty Counseling", status: "Completed" }
+        ]
+      },
+      {
+        id: "STU-1005",
+        name: "Vikramaditya Rao",
+        rollNo: "21ME053",
+        major: "Mechanical Engg",
+        year: "4th Year",
+        semester: 7,
+        gender: "Male",
+        successScore: 38,
+        riskScore: 82,
+        riskLevel: "High",
+        segment: "Attendance Risk",
+        interventionCategory: "Attendance Recovery",
+        cgpa: 5.80,
+        attendanceRate: 58,
+        assignmentCompletionRate: 40,
+        engagementScore: 42,
+        metrics: { academic: 52, attendance: 58, lmsEngagement: 42, placementReadiness: 34, skillsAssessment: 40 },
+        whyFlagged: "CRITICAL RISK: Attendance stands at 58% with an active backlog in Fluid Dynamics. Student is currently ineligible for upcoming campus placement drives.",
+        positiveDrivers: [
+          { factor: "Completed CAD Workshop", impact: "+8 pts", description: "Finished certified design training" },
+        ],
+        riskDrivers: [
+          { factor: "Critical Attendance Deficit", impact: "-26 pts", description: "58% overall attendance; ineligible for campus placements" },
+          { factor: "Active Academic Backlog", impact: "-20 pts", description: "1 active backlog in Fluid Dynamics" },
+          { factor: "Unresponsive to Faculty Alerts", impact: "-12 pts", description: "Ignored 2 HOD advisory notifications" },
+        ],
+        recommendedInterventions: [
+          { id: "INT-501", title: "Formal Dean Debarment Hearing", category: "Attendance Recovery", urgency: "Immediate", action: "Summon Student", status: "Pending" },
+          { id: "INT-502", title: "Backlog Tutoring in Fluid Dynamics", category: "Academic Support", urgency: "High", action: "Assign TA", status: "Pending" }
+        ]
+      },
+      {
+        id: "STU-1006",
+        name: "Sneha Patel",
+        rollNo: "23CS104",
+        major: "Computer Science",
+        year: "2nd Year",
+        semester: 3,
+        gender: "Female",
+        successScore: 92,
+        riskScore: 8,
+        riskLevel: "Low",
+        segment: "All-Round Performer",
+        interventionCategory: "Mentorship Required",
+        cgpa: 9.35,
+        attendanceRate: 96,
+        assignmentCompletionRate: 100,
+        engagementScore: 94,
+        metrics: { academic: 95, attendance: 96, lmsEngagement: 94, placementReadiness: 90, skillsAssessment: 88 },
+        whyFlagged: "Top tier student. Rank 2 in CSE department with zero risk flags. Recommended for undergraduate corporate research fellowship.",
+        positiveDrivers: [
+          { factor: "Exceptional CGPA", impact: "+22 pts", description: "Rank 2 in CSE Department with 9.35 CGPA" },
+          { factor: "Full LMS Compliance", impact: "+14 pts", description: "100% quiz completion and forum peer-help badges" },
+          { factor: "High Placement Score", impact: "+12 pts", description: "Cleared KPMG, Microsoft mock campus rounds" },
+        ],
+        riskDrivers: [],
+        recommendedInterventions: [
+          { id: "INT-601", title: "KPMG Campus Ambassador Program", category: "Mentorship Required", urgency: "Low", action: "Award Nomination", status: "Completed" }
+        ]
+      },
+      {
+        id: "STU-1007",
+        name: "Karan Johar",
+        rollNo: "22IT038",
+        major: "Information Tech",
+        year: "3rd Year",
+        semester: 5,
+        gender: "Male",
+        successScore: 61,
+        riskScore: 48,
+        riskLevel: "Medium",
+        segment: "Disengaged / LMS Inactivity",
+        interventionCategory: "Academic Support",
+        cgpa: 7.20,
+        attendanceRate: 76,
+        assignmentCompletionRate: 60,
+        engagementScore: 46,
+        metrics: { academic: 70, attendance: 76, lmsEngagement: 46, placementReadiness: 65, skillsAssessment: 60 },
+        whyFlagged: "Falling behind on weekly online LMS assessments and quizzes. Requires study habit intervention and business communication coaching.",
+        positiveDrivers: [
+          { factor: "Decent Subject Mastery", impact: "+12 pts", description: "Passed all mid-term theory papers comfortably" },
+        ],
+        riskDrivers: [
+          { factor: "Sporadic LMS Activity", impact: "-14 pts", description: "Last logged in 12 days ago; late assignment submissions" },
+          { factor: "Low Soft-Skill Score", impact: "-10 pts", description: "Needs practice in verbal business communication" },
+        ],
+        recommendedInterventions: [
+          { id: "INT-701", title: "Automated Daily SMS / Portal Nudge", category: "Academic Support", urgency: "Medium", action: "Enable Nudge", status: "In Progress" },
+          { id: "INT-702", title: "Business Communication Workshop", category: "Coding/Technical Bootcamp", urgency: "Medium", action: "Enroll in Lab", status: "Pending" }
+        ]
+      },
+      {
+        id: "STU-1008",
+        name: "Divya Balaji",
+        rollNo: "21EC044",
+        major: "Electronics & Comm",
+        year: "4th Year",
+        semester: 7,
+        gender: "Female",
+        successScore: 47,
+        riskScore: 71,
+        riskLevel: "High",
+        segment: "High Academic - Low Placement",
+        interventionCategory: "Coding/Technical Bootcamp",
+        cgpa: 8.10,
+        attendanceRate: 85,
+        assignmentCompletionRate: 88,
+        engagementScore: 74,
+        metrics: { academic: 82, attendance: 85, lmsEngagement: 74, placementReadiness: 32, skillsAssessment: 44 },
+        whyFlagged: "CRITICAL PLACEMENT RISK: Solid academic standing (8.10 CGPA), but scored in 24th percentile in aptitude and failed technical coding in 3 mock drives.",
+        positiveDrivers: [
+          { factor: "High Academic Foundation", impact: "+15 pts", description: "8.10 CGPA without any backlog history" },
+          { factor: "Steady Attendance", impact: "+10 pts", description: "85% consistent presence" },
+        ],
+        riskDrivers: [
+          { factor: "Severe Aptitude Deficit", impact: "-22 pts", description: "Scored in 24th percentile in campus aptitude test" },
+          { factor: "Zero Mock Drive Attempts", impact: "-18 pts", description: "Did not register for any campus recruitment drives" },
+        ],
+        recommendedInterventions: [
+          { id: "INT-801", title: "Intensive Aptitude & Logic Masterclass", category: "Coding/Technical Bootcamp", urgency: "Immediate", action: "Enroll Bootcamp", status: "Pending" },
+          { id: "INT-802", title: "Placement Cell Priority Mentorship", category: "Mentorship Required", urgency: "High", action: "Book Slot", status: "Pending" }
+        ]
+      },
+      {
+        id: "STU-1009",
+        name: "Arjun Reddy",
+        rollNo: "23ME012",
+        major: "Mechanical Engg",
+        year: "2nd Year",
+        semester: 3,
+        gender: "Male",
+        successScore: 82,
+        riskScore: 18,
+        riskLevel: "Low",
+        segment: "All-Round Performer",
+        interventionCategory: "Mentorship Required",
+        cgpa: 8.40,
+        attendanceRate: 91,
+        assignmentCompletionRate: 92,
+        engagementScore: 79,
+        metrics: { academic: 83, attendance: 91, lmsEngagement: 79, placementReadiness: 78, skillsAssessment: 81 },
+        whyFlagged: "Candidate is performing well in practical and theoretical mechanical coursework. Recommended for core robotics track.",
+        positiveDrivers: [
+          { factor: "Industry Internship Completed", impact: "+16 pts", description: "Summer internship rating: Excellent (Tata Motors)" },
+          { factor: "High Laboratory Marks", impact: "+12 pts", description: "92% practical experiment validation" },
+        ],
+        riskDrivers: [
+          { factor: "Mild Coding Hesitation", impact: "-6 pts", description: "Basic Python assessment was average" },
+        ],
+        recommendedInterventions: [
+          { id: "INT-901", title: "Core Robotics Track Guidance", category: "Mentorship Required", urgency: "Low", action: "Assign Advisor", status: "Completed" }
+        ]
+      },
+      {
+        id: "STU-1010",
+        name: "Meera Krishnan",
+        rollNo: "24CS018",
+        major: "Computer Science",
+        year: "1st Year",
+        semester: 1,
+        gender: "Female",
+        successScore: 71,
+        riskScore: 36,
+        riskLevel: "Medium",
+        segment: "Disengaged / LMS Inactivity",
+        interventionCategory: "Financial/General Support",
+        cgpa: 7.60,
+        attendanceRate: 80,
+        assignmentCompletionRate: 75,
+        engagementScore: 55,
+        metrics: { academic: 75, attendance: 80, lmsEngagement: 55, placementReadiness: 72, skillsAssessment: 73 },
+        whyFlagged: "First-year student with onboarding challenges; delayed semester fee clearance and missed initial portal orientation sessions.",
+        positiveDrivers: [
+          { factor: "Good Problem Solving", impact: "+14 pts", description: "LeetCode rating 1550+ and GitHub activity" },
+        ],
+        riskDrivers: [
+          { factor: "Low University Portal Engagement", impact: "-12 pts", description: "Misses internal forum notifications" },
+        ],
+        recommendedInterventions: [
+          { id: "INT-1001", title: "Campus Fee Relief & Scholarship Review", category: "Financial/General Support", urgency: "High", action: "Review Aid", status: "In Progress" },
+          { id: "INT-1002", title: "First-Year Transition Buddy Allocation", category: "Mentorship Required", urgency: "Medium", action: "Assign Buddy", status: "Pending" }
+        ]
+      },
+      {
+        id: "STU-1011",
+        name: "Nikhil Gupta",
+        rollNo: "24IT049",
+        major: "Information Tech",
+        year: "1st Year",
+        semester: 1,
+        gender: "Male",
+        successScore: 45,
+        riskScore: 75,
+        riskLevel: "High",
+        segment: "Attendance Risk",
+        interventionCategory: "Financial/General Support",
+        cgpa: 6.40,
+        attendanceRate: 61,
+        assignmentCompletionRate: 50,
+        engagementScore: 48,
+        metrics: { academic: 60, attendance: 61, lmsEngagement: 48, placementReadiness: 42, skillsAssessment: 50 },
+        whyFlagged: "CRITICAL RISK: First-year student with attendance below 65% in 3 foundational subjects due to documented personal emergency. Needs general campus welfare and counseling outreach.",
+        positiveDrivers: [
+          { factor: "Cleared Core CS Papers", impact: "+8 pts", description: "No current active backlogs" },
+        ],
+        riskDrivers: [
+          { factor: "Critical Attendance Drop", impact: "-25 pts", description: "Below 65% mandatory threshold in 3 subjects" },
+          { factor: "Low Soft Skills Rating", impact: "-12 pts", description: "Failed mock HR communication round" },
+        ],
+        recommendedInterventions: [
+          { id: "INT-1101", title: "Emergency Campus Welfare Counseling", category: "Financial/General Support", urgency: "Immediate", action: "Dispatch Counselor", status: "Pending" },
+          { id: "INT-1102", title: "Medical Leave Attendance Adjustment Review", category: "Attendance Recovery", urgency: "High", action: "Submit Request", status: "Pending" }
+        ]
+      },
+      {
+        id: "STU-1012",
+        name: "Tanya Sen",
+        rollNo: "22EC031",
+        major: "Electronics & Comm",
+        year: "3rd Year",
+        semester: 5,
+        gender: "Female",
+        successScore: 85,
+        riskScore: 15,
+        riskLevel: "Low",
+        segment: "All-Round Performer",
+        interventionCategory: "Coding/Technical Bootcamp",
+        cgpa: 8.65,
+        attendanceRate: 92,
+        assignmentCompletionRate: 95,
+        engagementScore: 88,
+        metrics: { academic: 87, attendance: 92, lmsEngagement: 88, placementReadiness: 81, skillsAssessment: 83 },
+        whyFlagged: "Strong performing student with high hardware ratings. Candidate is interested in transitioning into software/AI tracks and seeks advanced full-stack training.",
+        positiveDrivers: [
+          { factor: "Consistently High Assessments", impact: "+16 pts", description: "Ranked top 10% in Semester 4 Finals" },
+          { factor: "Active Embedded Systems Projects", impact: "+12 pts", description: "Published IoT paper in college symposium" },
+        ],
+        riskDrivers: [],
+        recommendedInterventions: [
+          { id: "INT-1201", title: "Cross-Disciplinary AI & Cloud Bootcamp", category: "Coding/Technical Bootcamp", urgency: "Low", action: "Approve Elective", status: "Completed" }
+        ]
+      }
+    ];
+
+    const campusKPIs = {
+      totalStudents: 1240,
+      atRiskStudents: 328,
+      highRiskStudents: 168,
+      studentsNeedingIntervention: 214,
+      averageScore: 73.4,
+      riskDistribution: [
+        { name: "Low Risk (Safe)", level: "Low", count: 744, percentage: 60.0, scoreRange: "Score >= 75", color: "#10B981" },
+        { name: "Medium Risk (Moderate)", level: "Medium", count: 328, percentage: 26.5, scoreRange: "Score 50-74", color: "#F59E0B" },
+        { name: "High Risk (Critical)", level: "High", count: 168, percentage: 13.5, scoreRange: "Score < 50", color: "#EF4444" },
+      ],
+      targetedSegments: [
+        { category: "Attendance Recovery", count: 78, urgentCount: 32, icon: "⏰", desc: "Students with attendance < 65% facing imminent exam debarment. Requires makeup classes.", urgency: "Immediate" },
+        { category: "Academic Support", count: 92, urgentCount: 45, icon: "📖", desc: "Students with mid-term score drops and active backlogs. Requires remedial tutoring.", urgency: "High" },
+        { category: "Coding/Technical Bootcamp", count: 84, urgentCount: 38, icon: "💻", desc: "High CGPA students lacking corporate coding competence for recruitment rounds.", urgency: "High" },
+        { category: "Mentorship Required", count: 65, urgentCount: 18, icon: "👤", desc: "Students needing behavioral coaching and mock interview preparation.", urgency: "Medium" },
+        { category: "Financial/General Support", count: 42, urgentCount: 12, icon: "🤝", desc: "Students with personal emergencies or first-year university adjustment challenges.", urgency: "Medium" }
+      ],
+      branchRiskBreakdown: [
+        { branch: "Computer Science", safe: 310, moderate: 75, critical: 35 },
+        { branch: "Info Tech", safe: 180, moderate: 60, critical: 40 },
+        { branch: "Electronics", safe: 154, moderate: 98, critical: 48 },
+        { branch: "Mechanical", safe: 100, moderate: 95, critical: 45 },
+      ]
+    };
+
+    function App() {
+      const [currentRoute, setCurrentRoute] = useState('overview');
+      const [selectedStudentId, setSelectedStudentId] = useState('STU-1003');
+      const [activeModalStudent, setActiveModalStudent] = useState(null);
+      const [actionToast, setActionToast] = useState(null);
+      const [selectedStudentIds, setSelectedStudentIds] = useState([]);
+      const [currentSlide, setCurrentSlide] = useState(0);
+
+      // Filters State (Prompt 6)
+      const [searchTerm, setSearchTerm] = useState('');
+      const [selectedRisk, setSelectedRisk] = useState('All');
+      const [selectedDept, setSelectedDept] = useState('All');
+      const [selectedYear, setSelectedYear] = useState('All');
+      const [selectedIntervention, setSelectedIntervention] = useState('All');
+      const [sortBy, setSortBy] = useState('risk-desc');
+
+      const triggerAction = (actionTitle, studentName) => {
+        setActionToast(`Action Executed: "${actionTitle}" for ${studentName}`);
+        setTimeout(() => setActionToast(null), 3500);
+      };
+
+      const handleSelectAll = (e) => {
+        if (e.target.checked) {
+          setSelectedStudentIds(filteredStudents.map(s => s.id));
+        } else {
+          setSelectedStudentIds([]);
+        }
+      };
+
+      const toggleSelectStudent = (id) => {
+        setSelectedStudentIds(prev =>
+          prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+        );
+      };
+
+      const handleBatchCounseling = () => {
+        setActionToast(`Priority Counseling Scheduled for ${selectedStudentIds.length} Selected Students`);
+        setSelectedStudentIds([]);
+        setTimeout(() => setActionToast(null), 4000);
+      };
+
+      const handleBatchAdvisories = () => {
+        setActionToast(`Dean Risk Advisories Dispatched to Parents & Mentors of ${selectedStudentIds.length} Students`);
+        setSelectedStudentIds([]);
+        setTimeout(() => setActionToast(null), 4000);
+      };
+
+      const handleExportCSV = () => {
+        const selected = mockStudents.filter(s => selectedStudentIds.includes(s.id));
+        const studentsToExport = selected.length > 0 ? selected : filteredStudents;
+        
+        const headers = ["ID", "Name", "Roll No", "Major", "Year", "Risk Score", "Risk Tier", "CGPA", "Attendance Rate", "Intervention Track"];
+        const rows = studentsToExport.map(s => [
+          s.id,
+          `"${s.name}"`,
+          s.rollNo,
+          `"${s.major}"`,
+          `"${s.year}"`,
+          `${s.riskScore}%`,
+          s.riskLevel,
+          s.cgpa,
+          `${s.attendanceRate}%`,
+          `"${s.interventionCategory}"`
+        ]);
+
+        const csvContent = "data:text/csv;charset=utf-8," + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `kpmg_student_risk_manifest_${new Date().toISOString().slice(0,10)}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        setActionToast(`Exported CSV Report for ${studentsToExport.length} Students`);
+        setTimeout(() => setActionToast(null), 4000);
+      };
+
+      const filteredStudents = useMemo(() => {
+        return mockStudents
+          .filter(student => {
+            const matchesSearch =
+              student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              student.rollNo.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              student.major.toLowerCase().includes(searchTerm.toLowerCase());
+            const matchesRisk = selectedRisk === 'All' || student.riskLevel === selectedRisk;
+            const matchesDept = selectedDept === 'All' || student.major === selectedDept;
+            const matchesYear = selectedYear === 'All' || student.year === selectedYear;
+            const matchesIntervention = selectedIntervention === 'All' || student.interventionCategory === selectedIntervention;
+            return matchesSearch && matchesRisk && matchesDept && matchesYear && matchesIntervention;
+          })
+          .sort((a, b) => {
+            if (sortBy === 'risk-desc') return b.riskScore - a.riskScore;
+            if (sortBy === 'risk-asc') return a.riskScore - b.riskScore;
+            if (sortBy === 'score-desc') return b.successScore - a.successScore;
+            if (sortBy === 'cgpa-desc') return b.cgpa - a.cgpa;
+            if (sortBy === 'attendance-asc') return a.attendanceRate - b.attendanceRate;
+            return 0;
+          });
+      }, [searchTerm, selectedRisk, selectedDept, selectedYear, selectedIntervention, sortBy]);
+
+      const [showReportModal, setShowReportModal] = useState(false);
+      const [simInterventions, setSimInterventions] = useState({
+        attendanceMakeup: false,
+        codingBootcamp: false,
+        lmsCatchup: false,
+        facultyMentoring: false
+      });
+
+      const selectedStudent = mockStudents.find(s => s.id === selectedStudentId) || mockStudents[0];
+
+      const simulatedScoreDelta =
+        (simInterventions.attendanceMakeup ? 10 : 0) +
+        (simInterventions.codingBootcamp ? 12 : 0) +
+        (simInterventions.lmsCatchup ? 8 : 0) +
+        (simInterventions.facultyMentoring ? 6 : 0);
+
+      const projectedScore = Math.min(100, selectedStudent.successScore + simulatedScoreDelta);
+      const projectedRiskTier = projectedScore >= 75 ? 'Low' : projectedScore >= 50 ? 'Medium' : 'High';
+
+      const resetFilters = () => {
+        setSearchTerm('');
+        setSelectedRisk('All');
+        setSelectedDept('All');
+        setSelectedYear('All');
+        setSelectedIntervention('All');
+        setSortBy('risk-desc');
+        setSelectedStudentIds([]);
+      };
+
+
+      return (
+        <div className="flex h-screen bg-slate-50 font-sans text-slate-800 antialiased overflow-hidden">
+          {/* Sidebar */}
+          <aside className="w-64 bg-slate-900 border-r border-slate-800 shadow-xl flex flex-col z-20">
+            <div className="p-5 border-b border-slate-800 bg-slate-950 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 font-black text-lg tracking-wider">
+                K
+              </div>
+              <div className="overflow-hidden">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-bold text-sm tracking-wide text-white">KPMG</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                    India
+                  </span>
+                </div>
+                <p className="text-xs font-medium text-slate-400 truncate">Smart Campus Analytics</p>
+              </div>
+            </div>
+
+            <div className="p-3">
+              <p className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                Decision Intelligence
+              </p>
+              <nav className="space-y-1.5">
+                <button
+                  onClick={() => setCurrentRoute('overview')}
+                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all text-left ${
+                    currentRoute === 'overview'
+                      ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/30'
+                      : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span>📊</span>
+                    <span>Student Risk Dashboard</span>
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setCurrentRoute('students')}
+                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all text-left ${
+                    currentRoute === 'students'
+                      ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/30'
+                      : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span>👥</span>
+                    <span>Student Directory</span>
+                  </div>
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                    168 High-Risk
+                  </span>
+                </button>
+
+                <button
+                  onClick={() => setCurrentRoute('pitch')}
+                  className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all text-left ${
+                    currentRoute === 'pitch'
+                      ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/30'
+                      : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <span>📽️</span>
+                    <span>Pitch Deck (Slides)</span>
+                  </div>
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                    5 Slides
+                  </span>
+                </button>
+              </nav>
+            </div>
+
+            <div className="mx-3 mt-4 p-3.5 rounded-xl bg-gradient-to-br from-blue-950/60 to-slate-900 border border-blue-800/40">
+              <div className="flex items-center gap-2 text-blue-400 text-xs font-semibold mb-1">
+                <span>✨</span>
+                <span>Explainable AI Engine</span>
+              </div>
+              <p className="text-[11px] text-slate-400 leading-relaxed">
+                SHAP feature contributions &amp; targeted multi-track interventions active.
+              </p>
+            </div>
+
+            <div className="mt-auto p-4 border-t border-slate-800 bg-slate-950/60 flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-xs font-semibold text-slate-200">
+                  VR
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-slate-200">Dr. V. Reddy</p>
+                  <p className="text-[10px] text-slate-400">Academic Dean / Admin</p>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          {/* Main Area */}
+          <main className="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-50">
+            <header className="h-16 bg-white border-b border-slate-200 px-6 flex items-center justify-between shrink-0 shadow-sm">
+              <div className="flex items-center gap-3">
+                <h1 className="text-lg font-bold text-slate-900 tracking-tight">
+                  {currentRoute === 'overview' && 'Executive Student Risk Dashboard'}
+                  {currentRoute === 'students' && 'Interactive Student Directory & Triage'}
+                  {currentRoute === 'profile' && 'Student Diagnostic & Explainable AI Profile'}
+                  {currentRoute === 'pitch' && 'KPMG Presentation & Pitch Deck'}
+                </h1>
+
+                <span className="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md font-medium border border-slate-200">
+                  Batch 2021-25 • Sem 7
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3">
+                {/* Demo Presets Switcher */}
+                <div className="hidden md:flex items-center gap-1.5 bg-slate-100 p-1 rounded-xl border border-slate-200">
+                  <span className="text-[10px] uppercase font-bold text-slate-400 px-1.5">Presets:</span>
+                  <button
+                    onClick={() => { setSelectedStudentId('STU-1003'); setCurrentRoute('profile'); }}
+                    className="text-xs px-2 py-1 bg-white hover:bg-rose-50 text-rose-700 font-bold rounded-lg border border-slate-200 transition-colors"
+                  >
+                    🔴 High Risk
+                  </button>
+                  <button
+                    onClick={() => { setSelectedStudentId('STU-1002'); setCurrentRoute('profile'); }}
+                    className="text-xs px-2 py-1 bg-white hover:bg-amber-50 text-amber-700 font-bold rounded-lg border border-slate-200 transition-colors"
+                  >
+                    🟡 Placement Gap
+                  </button>
+                  <button
+                    onClick={() => { setSelectedStudentId('STU-1006'); setCurrentRoute('profile'); }}
+                    className="text-xs px-2 py-1 bg-white hover:bg-emerald-50 text-emerald-700 font-bold rounded-lg border border-slate-200 transition-colors"
+                  >
+                    🟢 Star Student
+                  </button>
+                </div>
+
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  Live Demo Ready
+                </div>
+                <div className="h-4 w-px bg-slate-200"></div>
+                <span className="text-xs text-slate-500 font-medium hidden sm:inline">
+                  KPMG Hackathon Build
+                </span>
+              </div>
+            </header>
+
+            {/* Global Action Toast */}
+            {actionToast && (
+              <div className="fixed top-20 right-8 z-50 bg-emerald-600 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 text-xs font-bold animate-bounce">
+                <span>✓</span>
+                <span>{actionToast}</span>
+              </div>
+            )}
+
+            <div className="flex-1 overflow-y-auto p-6 md:p-8">
+              {/* PAGE 1: STUDENT RISK DASHBOARD (PROMPT 1 & 4) */}
+              {currentRoute === 'overview' && (
+                <div className="space-y-8 max-w-7xl mx-auto pb-10">
+                  <div className="bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 text-white rounded-2xl p-6 md:p-8 shadow-lg border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div>
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-semibold mb-3 border border-blue-500/30">
+                        <span>✨ KPMG Decision Intelligence</span>
+                      </div>
+                      <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
+                        Student Risk &amp; Success Dashboard
+                      </h2>
+                      <p className="text-slate-300 text-sm mt-2 max-w-2xl leading-relaxed">
+                        Real-time AI telemetry unifying Academics, Attendance, LMS, and Placements. Identifies at-risk cohorts and suggests actionable interventions.
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => setCurrentRoute('students')}
+                      className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-semibold transition-all shadow-md self-start md:self-center flex items-center gap-2"
+                    >
+                      <span>Explore Directory</span>
+                      <span>→</span>
+                    </button>
+                  </div>
+
+                  {/* 4 Top KPI Cards (Prompt 1) */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    {/* Total Students */}
+                    <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">Total Students</span>
+                        <div className="p-2.5 bg-blue-50 text-blue-700 rounded-xl">👥</div>
+                      </div>
+                      <div className="text-3xl font-black text-slate-900">{campusKPIs.totalStudents.toLocaleString()}</div>
+                      <div className="mt-3 text-xs text-emerald-600 font-semibold">✓ 100% Data Integrated</div>
+                    </div>
+
+                    {/* At-Risk Students */}
+                    <div className="bg-white p-5 rounded-2xl border border-amber-200 bg-gradient-to-br from-white to-amber-50/30 shadow-sm">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-amber-700">At-Risk Students</span>
+                        <div className="p-2.5 bg-amber-100 text-amber-700 rounded-xl">⚠️</div>
+                      </div>
+                      <div className="text-3xl font-black text-amber-600">{campusKPIs.atRiskStudents}</div>
+                      <div className="mt-3 text-xs text-amber-700 font-semibold">26.5% of Campus (Moderate + High)</div>
+                    </div>
+
+                    {/* High-Risk Students */}
+                    <div className="bg-white p-5 rounded-2xl border border-rose-200 bg-gradient-to-br from-white to-rose-50/40 shadow-sm">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-rose-700">High-Risk Students</span>
+                        <div className="p-2.5 bg-rose-100 text-rose-700 rounded-xl">🔥</div>
+                      </div>
+                      <div className="text-3xl font-black text-rose-600">{campusKPIs.highRiskStudents}</div>
+                      <div className="mt-3 text-xs text-rose-700 font-semibold">Immediate Intervention Needed</div>
+                    </div>
+
+                    {/* Students Needing Intervention */}
+                    <div className="bg-white p-5 rounded-2xl border border-blue-200 bg-gradient-to-br from-white to-blue-50/30 shadow-sm">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-blue-700">Needing Intervention</span>
+                        <div className="p-2.5 bg-blue-100 text-blue-700 rounded-xl">🎯</div>
+                      </div>
+                      <div className="text-3xl font-black text-blue-900">{campusKPIs.studentsNeedingIntervention}</div>
+                      <div className="mt-3 text-xs text-blue-700 font-semibold">Active Support Tickets</div>
+                    </div>
+                  </div>
+
+                  {/* Risk Distribution Chart Section (Prompt 1) */}
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    {/* Left: Overall Risk Breakdown */}
+                    <div className="col-span-1 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                      <div>
+                        <h3 className="font-bold text-slate-900 text-base mb-1">Risk Distribution Breakdown</h3>
+                        <p className="text-xs text-slate-500 mb-4">Stratified by Success Score thresholds</p>
+
+                        <div className="w-full bg-slate-100 h-3 rounded-full overflow-hidden flex mb-4">
+                          <div style={{ width: '60%' }} className="bg-emerald-500" title="Low: 60%"></div>
+                          <div style={{ width: '26.5%' }} className="bg-amber-500" title="Medium: 26.5%"></div>
+                          <div style={{ width: '13.5%' }} className="bg-rose-500" title="High: 13.5%"></div>
+                        </div>
+
+                        <div className="space-y-2.5">
+                          {campusKPIs.riskDistribution.map((item, idx) => (
+                            <div
+                              key={idx}
+                              onClick={() => { setSelectedRisk(item.level); setCurrentRoute('students'); }}
+                              className="p-3 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-slate-100 transition-all cursor-pointer flex items-center justify-between"
+                            >
+                              <div className="flex items-center gap-2.5">
+                                <span className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}></span>
+                                <div>
+                                  <p className="text-xs font-bold text-slate-900">{item.name}</p>
+                                  <p className="text-[10px] text-slate-400 font-mono">{item.scoreRange}</p>
+                                </div>
+                              </div>
+                              <div className="text-right">
+                                <p className="text-xs font-black text-slate-900">{item.count}</p>
+                                <p className="text-[10px] text-slate-500">{item.percentage}%</p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                        <span className="text-rose-600 font-bold">168 Critical Profiles</span>
+                        <button onClick={() => setCurrentRoute('students')} className="text-blue-600 font-semibold hover:underline">
+                          Triage in Directory →
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Right: Departmental Bar Chart */}
+                    <div className="col-span-2 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                      <div className="flex items-center justify-between mb-4">
+                        <div>
+                          <h3 className="font-bold text-slate-900 text-base">Departmental Risk Distribution</h3>
+                          <p className="text-xs text-slate-500 mt-0.5">Risk profiles across Engineering faculties</p>
+                        </div>
+                        <div className="flex items-center gap-3 text-xs font-semibold">
+                          <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>Safe</span>
+                          <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>Moderate</span>
+                          <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>High</span>
+                        </div>
+                      </div>
+
+                      <div className="w-full h-56 bg-slate-50/70 rounded-xl p-4 border border-slate-100 flex flex-col justify-end">
+                        <div className="grid grid-cols-4 gap-4 h-40 items-end border-b border-slate-200 pb-2">
+                          {campusKPIs.branchRiskBreakdown.map((item, idx) => {
+                            const maxVal = 320;
+                            const safeH = Math.round((item.safe / maxVal) * 130);
+                            const modH = Math.round((item.moderate / maxVal) * 130);
+                            const critH = Math.round((item.critical / maxVal) * 130);
+                            return (
+                              <div key={idx} className="flex flex-col items-center h-full justify-end">
+                                <div className="flex items-end gap-1.5 w-full justify-center">
+                                  <div style={{ height: `${safeH}px` }} className="w-4 bg-emerald-500 rounded-t-sm" title={`Safe: ${item.safe}`}></div>
+                                  <div style={{ height: `${modH}px` }} className="w-4 bg-amber-500 rounded-t-sm" title={`Moderate: ${item.moderate}`}></div>
+                                  <div style={{ height: `${critH}px` }} className="w-4 bg-rose-500 rounded-t-sm" title={`Critical: ${item.critical}`}></div>
+                                </div>
+                                <span className="text-[11px] font-bold text-slate-700 mt-2">{item.branch === "Computer Science" ? "CSE" : item.branch === "Info Tech" ? "IT" : item.branch === "Electronics" ? "ECE" : "MECH"}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      <div className="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                        <span>Highest Critical Risk: <strong className="text-rose-600">Electronics (48)</strong></span>
+                        <button onClick={() => setCurrentRoute('students')} className="text-blue-600 font-semibold hover:underline">
+                          View Department Records →
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 5 Targeted Segmentation Categories (Prompt 4) */}
+                  <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="font-bold text-slate-900 text-base">
+                          Targeted Segmentation &amp; Intervention Tracks (5 Tracks)
+                        </h3>
+                        <p className="text-xs text-slate-500 mt-0.5">
+                          Actionable student groups aligned with tailored university intervention programs
+                        </p>
+                      </div>
+                      <span className="text-xs font-bold bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full border border-indigo-200">
+                        KPMG Criteria
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                      {campusKPIs.targetedSegments.map((seg, idx) => (
+                        <div
+                          key={idx}
+                          className="p-4 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-slate-50 transition-all flex flex-col justify-between"
+                        >
+                          <div>
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="text-xl">{seg.icon}</span>
+                              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                                seg.urgency === 'Immediate' ? 'bg-rose-50 text-rose-700 border-rose-200' : 'bg-amber-50 text-amber-700 border-amber-200'
+                              }`}>
+                                {seg.urgency}
+                              </span>
+                            </div>
+                            <h4 className="text-xs font-bold text-slate-900">{seg.category}</h4>
+                            <div className="my-2 flex items-baseline gap-1">
+                              <span className="text-2xl font-black text-slate-900 font-mono">{seg.count}</span>
+                              <span className="text-xs text-slate-400">students</span>
+                              <span className="text-[10px] text-rose-600 font-bold ml-auto">({seg.urgentCount} urgent)</span>
+                            </div>
+                            <p className="text-[11px] text-slate-500 leading-relaxed">{seg.desc}</p>
+                          </div>
+                          <button
+                            onClick={() => { setSelectedIntervention(seg.category); setCurrentRoute('students'); }}
+                            className="mt-4 pt-2 border-t border-slate-200 text-xs font-bold text-blue-600 hover:text-blue-800 text-left"
+                          >
+                            Filter Track Cohort →
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* PAGE 2: INTERACTIVE STUDENT DIRECTORY (PROMPTS 2, 5, 6) */}
+              {currentRoute === 'students' && (
+                <div className="space-y-6 max-w-7xl mx-auto pb-12">
+                  <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    {/* Search Bar */}
+                    <div className="relative">
+                      <span className="absolute left-3.5 top-3 text-slate-400">🔍</span>
+                      <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        placeholder="Search student by name, roll number, or department..."
+                        className="w-full pl-10 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                      />
+                      {searchTerm && (
+                        <button onClick={() => setSearchTerm('')} className="absolute right-3.5 top-3 text-slate-400 hover:text-slate-600">✕</button>
+                      )}
+                    </div>
+
+                    {/* 4 Filters Row (Prompt 6: Risk level, Department, Year, Intervention category) */}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                      {/* 1. Risk Level */}
+                      <div className="bg-slate-50 border border-slate-200 rounded-xl p-2 text-xs">
+                        <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1">Risk Level</label>
+                        <select
+                          value={selectedRisk}
+                          onChange={(e) => setSelectedRisk(e.target.value)}
+                          className="w-full bg-transparent font-bold text-slate-800 focus:outline-none cursor-pointer"
+                        >
+                          <option value="All">All Risk Tiers</option>
+                          <option value="High">High Risk (Critical)</option>
+                          <option value="Medium">Medium Risk (Moderate)</option>
+                          <option value="Low">Low Risk (Safe)</option>
+                        </select>
+                      </div>
+
+                      {/* 2. Department */}
+                      <div className="bg-slate-50 border border-slate-200 rounded-xl p-2 text-xs">
+                        <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1">Department</label>
+                        <select
+                          value={selectedDept}
+                          onChange={(e) => setSelectedDept(e.target.value)}
+                          className="w-full bg-transparent font-bold text-slate-800 focus:outline-none cursor-pointer truncate"
+                        >
+                          <option value="All">All Departments</option>
+                          <option value="Computer Science">Computer Science</option>
+                          <option value="Information Tech">Information Tech</option>
+                          <option value="Electronics & Comm">Electronics & Comm</option>
+                          <option value="Mechanical Engg">Mechanical Engg</option>
+                        </select>
+                      </div>
+
+                      {/* 3. Academic Year */}
+                      <div className="bg-slate-50 border border-slate-200 rounded-xl p-2 text-xs">
+                        <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1">Year</label>
+                        <select
+                          value={selectedYear}
+                          onChange={(e) => setSelectedYear(e.target.value)}
+                          className="w-full bg-transparent font-bold text-slate-800 focus:outline-none cursor-pointer"
+                        >
+                          <option value="All">All Years</option>
+                          <option value="1st Year">1st Year</option>
+                          <option value="2nd Year">2nd Year</option>
+                          <option value="3rd Year">3rd Year</option>
+                          <option value="4th Year">4th Year</option>
+                        </select>
+                      </div>
+
+                      {/* 4. Intervention Category */}
+                      <div className="bg-slate-50 border border-slate-200 rounded-xl p-2 text-xs">
+                        <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1">Intervention Track</label>
+                        <select
+                          value={selectedIntervention}
+                          onChange={(e) => setSelectedIntervention(e.target.value)}
+                          className="w-full bg-transparent font-bold text-slate-800 focus:outline-none cursor-pointer truncate"
+                        >
+                          <option value="All">All Intervention Tracks</option>
+                          <option value="Attendance Recovery">Attendance Recovery</option>
+                          <option value="Academic Support">Academic Support</option>
+                          <option value="Coding/Technical Bootcamp">Coding Bootcamp</option>
+                          <option value="Mentorship Required">Mentorship Required</option>
+                          <option value="Financial/General Support">Financial Support</option>
+                        </select>
+                      </div>
+
+                      {/* 5. Sort By */}
+                      <div className="bg-slate-50 border border-slate-200 rounded-xl p-2 text-xs">
+                        <label className="block text-[10px] font-bold uppercase text-slate-400 mb-1">Sort By</label>
+                        <select
+                          value={sortBy}
+                          onChange={(e) => setSortBy(e.target.value)}
+                          className="w-full bg-transparent font-bold text-slate-800 focus:outline-none cursor-pointer truncate"
+                        >
+                          <option value="risk-desc">Risk: Highest First</option>
+                          <option value="risk-asc">Risk: Lowest First</option>
+                          <option value="score-desc">Success: High → Low</option>
+                          <option value="attendance-asc">Attendance: Lowest First</option>
+                          <option value="cgpa-desc">CGPA: Highest First</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between text-xs text-slate-500 pt-2 border-t border-slate-100 flex-wrap gap-2">
+                      <div className="flex items-center gap-2">
+                        <span>Showing <strong className="text-slate-900">{filteredStudents.length}</strong> matching profiles</span>
+                        {(searchTerm || selectedRisk !== 'All' || selectedDept !== 'All' || selectedYear !== 'All' || selectedIntervention !== 'All') && (
+                          <button onClick={resetFilters} className="text-rose-600 font-bold hover:underline">
+                            Reset Filters
+                          </button>
+                        )}
+                        <button
+                          onClick={handleExportCSV}
+                          className="ml-2 px-3 py-1 bg-slate-900 hover:bg-slate-800 text-white rounded-lg font-bold text-xs transition-colors shadow-2xs"
+                        >
+                          📥 Export CSV
+                        </button>
+                      </div>
+                      <span className="text-slate-400">Click any student row to open detailed diagnostic profile modal</span>
+                    </div>
+                  </div>
+
+                  {/* Student Table */}
+                  <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left text-sm">
+                        <thead className="bg-slate-50/80 text-slate-500 font-semibold text-xs uppercase tracking-wider border-b border-slate-200">
+                          <tr>
+                            <th className="px-4 py-4 w-12 text-center">
+                              <input
+                                type="checkbox"
+                                aria-label="Select all students"
+                                checked={filteredStudents.length > 0 && selectedStudentIds.length === filteredStudents.length}
+                                onChange={handleSelectAll}
+                                className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer accent-blue-600"
+                              />
+                            </th>
+                            <th className="px-6 py-4">Student</th>
+                            <th className="px-6 py-4">Year &amp; Department</th>
+                            <th className="px-6 py-4">Risk Score</th>
+                            <th className="px-6 py-4">Attendance</th>
+                            <th className="px-6 py-4">CGPA</th>
+                            <th className="px-6 py-4">Intervention Track</th>
+                            <th className="px-6 py-4 text-right">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100">
+                          {filteredStudents.map((stu) => {
+                            const isSelected = selectedStudentIds.includes(stu.id);
+                            return (
+                              <tr
+                                key={stu.id}
+                                onClick={() => setActiveModalStudent(stu)}
+                                className={`transition-colors cursor-pointer group ${
+                                  isSelected ? 'bg-blue-50/70 hover:bg-blue-100/50' : 'hover:bg-blue-50/40'
+                                }`}
+                              >
+                                <td className="px-4 py-4 w-12 text-center" onClick={(e) => e.stopPropagation()}>
+                                  <input
+                                    type="checkbox"
+                                    aria-label={`Select ${stu.name}`}
+                                    checked={isSelected}
+                                    onChange={() => toggleSelectStudent(stu.id)}
+                                    className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 cursor-pointer accent-blue-600"
+                                  />
+                                </td>
+
+                                <td className="px-6 py-4">
+                                  <div className="flex items-center gap-3">
+                                    <div className="w-9 h-9 rounded-xl bg-slate-100 border border-slate-200 text-slate-700 flex items-center justify-center font-bold text-xs shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                                      {stu.name.split(' ').map(n => n[0]).join('')}
+                                    </div>
+                                    <div>
+                                      <span className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors block">
+                                        {stu.name}
+                                      </span>
+                                      <span className="text-xs text-slate-400 font-mono">{stu.rollNo} • {stu.gender}</span>
+                                    </div>
+                                  </div>
+                                </td>
+
+                                <td className="px-6 py-4 text-xs">
+                                  <p className="font-bold text-slate-800">{stu.major}</p>
+                                  <p className="text-slate-400">{stu.year} (Sem {stu.semester})</p>
+                                </td>
+
+                                <td className="px-6 py-4">
+                                  <div className="space-y-1 min-w-[100px]">
+                                    <div className="flex items-center justify-between text-xs">
+                                      <span className={`font-black font-mono ${stu.riskLevel === 'High' ? 'text-rose-600' : stu.riskLevel === 'Medium' ? 'text-amber-600' : 'text-emerald-600'}`}>
+                                        {stu.riskScore}% Risk
+                                      </span>
+                                      <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded ${stu.riskLevel === 'High' ? 'bg-rose-100 text-rose-800' : stu.riskLevel === 'Medium' ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}`}>
+                                        {stu.riskLevel}
+                                      </span>
+                                    </div>
+                                    <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                                      <div
+                                        className={`h-full rounded-full ${stu.riskLevel === 'High' ? 'bg-rose-500' : stu.riskLevel === 'Medium' ? 'bg-amber-500' : 'bg-emerald-500'}`}
+                                        style={{ width: `${stu.riskScore}%` }}
+                                      ></div>
+                                    </div>
+                                  </div>
+                                </td>
+
+                                <td className="px-6 py-4 text-xs font-mono font-bold">
+                                  <span className={stu.attendanceRate < 65 ? 'text-rose-600' : 'text-slate-800'}>
+                                    {stu.attendanceRate}%
+                                  </span>
+                                </td>
+
+                                <td className="px-6 py-4 text-xs font-mono font-bold text-slate-800">
+                                  {stu.cgpa}
+                                </td>
+
+                                <td className="px-6 py-4">
+                                  <span className="inline-block text-[11px] font-semibold text-slate-700 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200">
+                                    {stu.interventionCategory}
+                                  </span>
+                                </td>
+
+                                <td className="px-6 py-4 text-right">
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setActiveModalStudent(stu);
+                                    }}
+                                    className="px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white rounded-lg text-xs font-bold transition-all border border-blue-200 shadow-2xs"
+                                  >
+                                    Quick View →
+                                  </button>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  {/* Floating Batch Actions Bar */}
+                  {selectedStudentIds.length > 0 && (
+                    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-slate-900/95 text-white px-6 py-3.5 rounded-2xl shadow-2xl border border-slate-700 flex flex-wrap items-center gap-4 text-xs font-semibold backdrop-blur-md animate-fade-in">
+                      <div className="flex items-center gap-2 pr-3 border-r border-slate-700">
+                        <span className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white text-[11px]">
+                          {selectedStudentIds.length}
+                        </span>
+                        <span className="text-slate-200">Selected</span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={handleBatchCounseling}
+                          className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-all flex items-center gap-1.5 shadow-sm"
+                        >
+                          <span>📅 Schedule Priority Counseling</span>
+                        </button>
+                        <button
+                          onClick={handleBatchAdvisories}
+                          className="px-3.5 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-xl font-bold transition-all flex items-center gap-1.5 shadow-sm"
+                        >
+                          <span>📨 Dispatch Advisories</span>
+                        </button>
+                        <button
+                          onClick={handleExportCSV}
+                          className="px-3.5 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-xl font-bold transition-all flex items-center gap-1.5 border border-white/20"
+                        >
+                          <span>📥 Export CSV</span>
+                        </button>
+                      </div>
+
+                      <button
+                        onClick={() => setSelectedStudentIds([])}
+                        className="text-slate-400 hover:text-white pl-3 border-l border-slate-700 text-xs font-semibold"
+                      >
+                        Clear Selection
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+
+
+              {/* PAGE 3: STUDENT PROFILE (PROMPTS 2, 3, 5) */}
+              {currentRoute === 'profile' && (
+                <div className="space-y-6 max-w-7xl mx-auto pb-12">
+                  <div className="flex items-center justify-between">
+                    <button
+                      onClick={() => setCurrentRoute('students')}
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors"
+                    >
+                      <span>← Back to Student Directory</span>
+                    </button>
+                    <div className="flex items-center gap-2.5">
+                      <button
+                        onClick={() => setShowReportModal(true)}
+                        className="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center gap-1.5"
+                      >
+                        <span>📄 Generate Dean Report</span>
+                      </button>
+                      <span className="text-xs bg-blue-50 text-blue-700 px-3 py-1 rounded-full border border-blue-200 font-medium">
+                        Student ID: {selectedStudent.id}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Header Card */}
+                  <div className="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-700 to-indigo-800 text-white flex items-center justify-center font-bold text-xl shadow-md">
+                        {selectedStudent.name.split(' ').map((n) => n[0]).join('')}
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <h2 className="text-2xl font-bold text-slate-900">{selectedStudent.name}</h2>
+                          <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full ${
+                            selectedStudent.riskLevel === 'High' ? 'bg-rose-50 text-rose-700 border border-rose-200' : selectedStudent.riskLevel === 'Medium' ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                          }`}>
+                            {selectedStudent.riskLevel} Risk Tier
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-500 mt-1">
+                          Roll No: <span className="font-mono text-slate-700 font-semibold">{selectedStudent.rollNo}</span> • {selectedStudent.major} • {selectedStudent.year} (Sem {selectedStudent.semester})
+                        </p>
+                        <div className="mt-2 flex items-center gap-2">
+                          <span className="text-xs font-semibold text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-md border border-indigo-200">
+                            Track: {selectedStudent.interventionCategory}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Dual Score Gauge */}
+                    <div className="flex items-center gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200 self-start md:self-auto">
+                      <div className="text-right">
+                        <p className="text-[10px] font-bold uppercase text-slate-400">Risk Score</p>
+                        <div className={`text-3xl font-black font-mono ${selectedStudent.riskLevel === 'High' ? 'text-rose-600' : selectedStudent.riskLevel === 'Medium' ? 'text-amber-600' : 'text-emerald-600'}`}>
+                          {selectedStudent.riskScore}%
+                        </div>
+                        <p className="text-[10px] text-slate-400 font-medium">Success: {selectedStudent.successScore}/100</p>
+                      </div>
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center font-bold text-white shadow-sm ${
+                        selectedStudent.riskLevel === 'High' ? 'bg-rose-600' : selectedStudent.riskLevel === 'Medium' ? 'bg-amber-500' : 'bg-emerald-600'
+                      }`}>
+                        {selectedStudent.riskLevel === 'High' ? 'C' : selectedStudent.riskLevel === 'Medium' ? 'B' : 'A'}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* What-If Intervention Impact Simulator */}
+                  <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 text-white rounded-2xl p-6 shadow-md border border-blue-800">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-base font-bold text-white">⚡ What-If Intervention Simulator</span>
+                          <span className="text-[10px] bg-blue-500/20 text-blue-300 px-2 py-0.5 rounded font-bold border border-blue-500/40">Predictive</span>
+                        </div>
+                        <p className="text-xs text-blue-200/80 mt-0.5">
+                          Simulate the mathematical impact of completing targeted interventions for {selectedStudent.name}.
+                        </p>
+                      </div>
+
+                      <div className="bg-white/10 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10 flex items-center gap-4 shrink-0">
+                        <div>
+                          <p className="text-[10px] uppercase font-bold text-blue-200">Projected Success Score</p>
+                          <div className="flex items-baseline gap-1.5">
+                            <span className="text-2xl font-black font-mono text-white">{projectedScore}</span>
+                            <span className="text-xs text-blue-200">/ 100</span>
+                            {simulatedScoreDelta > 0 && (
+                              <span className="text-xs font-bold text-emerald-300 ml-1">(+{simulatedScoreDelta} pts)</span>
+                            )}
+                          </div>
+                        </div>
+                        <span className={`text-xs font-extrabold px-2.5 py-1 rounded-lg ${
+                          projectedRiskTier === 'Low' ? 'bg-emerald-500 text-white' : projectedRiskTier === 'Medium' ? 'bg-amber-500 text-white' : 'bg-rose-500 text-white'
+                        }`}>
+                          {projectedRiskTier} Risk
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                      <label className={`p-3 rounded-xl border cursor-pointer transition-all flex items-start gap-2.5 ${
+                        simInterventions.attendanceMakeup ? 'bg-blue-600/40 border-blue-400' : 'bg-white/5 border-white/10 hover:bg-white/10'
+                      }`}>
+                        <input
+                          type="checkbox"
+                          checked={simInterventions.attendanceMakeup}
+                          onChange={(e) => setSimInterventions(prev => ({ ...prev, attendanceMakeup: e.target.checked }))}
+                          className="mt-0.5 accent-blue-500 rounded"
+                        />
+                        <div>
+                          <p className="text-xs font-bold text-white">Attendance Recovery (+12%)</p>
+                          <p className="text-[11px] text-blue-200 mt-0.5">+10 pts to Success Score</p>
+                        </div>
+                      </label>
+
+                      <label className={`p-3 rounded-xl border cursor-pointer transition-all flex items-start gap-2.5 ${
+                        simInterventions.codingBootcamp ? 'bg-blue-600/40 border-blue-400' : 'bg-white/5 border-white/10 hover:bg-white/10'
+                      }`}>
+                        <input
+                          type="checkbox"
+                          checked={simInterventions.codingBootcamp}
+                          onChange={(e) => setSimInterventions(prev => ({ ...prev, codingBootcamp: e.target.checked }))}
+                          className="mt-0.5 accent-blue-500 rounded"
+                        />
+                        <div>
+                          <p className="text-xs font-bold text-white">Coding Bootcamp (+28%)</p>
+                          <p className="text-[11px] text-blue-200 mt-0.5">+12 pts to Success Score</p>
+                        </div>
+                      </label>
+
+                      <label className={`p-3 rounded-xl border cursor-pointer transition-all flex items-start gap-2.5 ${
+                        simInterventions.lmsCatchup ? 'bg-blue-600/40 border-blue-400' : 'bg-white/5 border-white/10 hover:bg-white/10'
+                      }`}>
+                        <input
+                          type="checkbox"
+                          checked={simInterventions.lmsCatchup}
+                          onChange={(e) => setSimInterventions(prev => ({ ...prev, lmsCatchup: e.target.checked }))}
+                          className="mt-0.5 accent-blue-500 rounded"
+                        />
+                        <div>
+                          <p className="text-xs font-bold text-white">LMS Catch-Up (+25%)</p>
+                          <p className="text-[11px] text-blue-200 mt-0.5">+8 pts to Success Score</p>
+                        </div>
+                      </label>
+
+                      <label className={`p-3 rounded-xl border cursor-pointer transition-all flex items-start gap-2.5 ${
+                        simInterventions.facultyMentoring ? 'bg-blue-600/40 border-blue-400' : 'bg-white/5 border-white/10 hover:bg-white/10'
+                      }`}>
+                        <input
+                          type="checkbox"
+                          checked={simInterventions.facultyMentoring}
+                          onChange={(e) => setSimInterventions(prev => ({ ...prev, facultyMentoring: e.target.checked }))}
+                          className="mt-0.5 accent-blue-500 rounded"
+                        />
+                        <div>
+                          <p className="text-xs font-bold text-white">1-on-1 Mentorship (+15%)</p>
+                          <p className="text-[11px] text-blue-200 mt-0.5">+6 pts to Success Score</p>
+                        </div>
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* 2-Column Grid */}
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    {/* Left: 5-Axis Radar Chart */}
+                    <div className="col-span-1 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between">
+                          <h3 className="font-bold text-slate-900 text-sm">Competency Radar (5 Dimensions)</h3>
+                          <span className="text-[10px] bg-blue-50 text-blue-700 font-semibold px-2 py-0.5 rounded border border-blue-200">
+                            vs Benchmark
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-500 mt-0.5">Multi-source balance for {selectedStudent.name}</p>
+                      </div>
+
+                      {/* SVG Radar */}
+                      <div className="w-full my-3 flex flex-col items-center justify-center bg-slate-50/70 p-3 rounded-xl border border-slate-100">
+                        {(() => {
+                          const m = selectedStudent.metrics;
+                          const getCoords = (val, angleDeg) => {
+                            const rad = (angleDeg * Math.PI) / 180;
+                            const r = (val / 100) * 78;
+                            return `${(130 + r * Math.cos(rad)).toFixed(1)},${(115 + r * Math.sin(rad)).toFixed(1)}`;
+                          };
+
+                          const stuPoints = [
+                            getCoords(m.academic, -90),
+                            getCoords(m.attendance, -18),
+                            getCoords(m.lmsEngagement, 54),
+                            getCoords(m.placementReadiness, 126),
+                            getCoords(m.skillsAssessment, 198)
+                          ].join(' ');
+
+                          const benchPoints = [
+                            getCoords(75, -90), getCoords(80, -18), getCoords(70, 54), getCoords(65, 126), getCoords(72, 198)
+                          ].join(' ');
+
+                          const web100 = [getCoords(100,-90), getCoords(100,-18), getCoords(100,54), getCoords(100,126), getCoords(100,198)].join(' ');
+                          const web50 = [getCoords(50,-90), getCoords(50,-18), getCoords(50,54), getCoords(50,126), getCoords(50,198)].join(' ');
+
+                          return (
+                            <svg viewBox="0 0 260 230" className="w-full max-w-[260px] overflow-visible">
+                              <polygon points={web100} fill="none" stroke="#E2E8F0" strokeWidth="1" />
+                              <polygon points={web50} fill="none" stroke="#E2E8F0" strokeWidth="1" />
+                              <line x1="130" y1="115" x2="130" y2="37" stroke="#CBD5E1" strokeWidth="1" />
+                              <line x1="130" y1="115" x2="204.1" y2="90.9" stroke="#CBD5E1" strokeWidth="1" />
+                              <line x1="130" y1="115" x2="175.8" y2="178.1" stroke="#CBD5E1" strokeWidth="1" />
+                              <line x1="130" y1="115" x2="84.2" y2="178.1" stroke="#CBD5E1" strokeWidth="1" />
+                              <line x1="130" y1="115" x2="55.9" y2="90.9" stroke="#CBD5E1" strokeWidth="1" />
+                              <polygon points={benchPoints} fill="#64748B" fillOpacity="0.12" stroke="#94A3B8" strokeWidth="1.5" strokeDasharray="3 3" />
+                              <polygon points={stuPoints} fill="#2563EB" fillOpacity="0.35" stroke="#1D4ED8" strokeWidth="2.5" />
+                              <text x="130" y="26" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#334155">Academic ({m.academic})</text>
+                              <text x="210" y="94" textAnchor="start" fontSize="10" fontWeight="bold" fill="#334155">Attn ({m.attendance})</text>
+                              <text x="180" y="196" textAnchor="start" fontSize="10" fontWeight="bold" fill="#334155">LMS ({m.lmsEngagement})</text>
+                              <text x="80" y="196" textAnchor="end" fontSize="10" fontWeight="bold" fill="#334155">Placement ({m.placementReadiness})</text>
+                              <text x="50" y="94" textAnchor="end" fontSize="10" fontWeight="bold" fill="#334155">Skills ({m.skillsAssessment})</text>
+                            </svg>
+                          );
+                        })()}
+                        <div className="flex items-center gap-4 text-[11px] font-medium text-slate-600 mt-2">
+                          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-blue-600"></span>{selectedStudent.name}</span>
+                          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-slate-400"></span>Campus Benchmark</span>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2 pt-2 border-t border-slate-100 text-xs">
+                        <div className="flex justify-between"><span className="text-slate-500">CGPA:</span><span className="font-bold text-slate-800">{selectedStudent.cgpa} / 10.0</span></div>
+                        <div className="flex justify-between"><span className="text-slate-500">Attendance:</span><span className="font-bold text-slate-800">{selectedStudent.attendanceRate}%</span></div>
+                        <div className="flex justify-between"><span className="text-slate-500">Assignment Completion:</span><span className="font-bold text-slate-800">{selectedStudent.assignmentCompletionRate}%</span></div>
+                      </div>
+                    </div>
+
+                    {/* Right: Explainable AI & Action Hub */}
+                    <div className="col-span-2 space-y-6">
+                      {/* Explainable AI: "Why was this student flagged?" */}
+                      <div className="bg-gradient-to-br from-indigo-950 to-slate-900 text-white rounded-2xl p-6 shadow-sm border border-indigo-900/60">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs font-bold uppercase tracking-wider text-indigo-300">Why was this student flagged? (Explainable AI Engine)</span>
+                          <span className="text-[10px] font-bold bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded border border-indigo-500/40">SHAP Diagnosis</span>
+                        </div>
+                        <p className="text-xs text-slate-200 leading-relaxed font-medium">
+                          {selectedStudent.whyFlagged}
+                        </p>
+                      </div>
+
+                      {/* Top Factor Attributions */}
+                      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-3">
+                        <h3 className="font-bold text-slate-900 text-sm">Top Score Driver Attributions</h3>
+                        <div className="space-y-2.5">
+                          {selectedStudent.positiveDrivers.map((driver, idx) => (
+                            <div key={`pos-${idx}`} className="p-3.5 rounded-xl bg-emerald-50/60 border border-emerald-200 flex items-start justify-between gap-3">
+                              <div>
+                                <p className="text-xs font-bold text-emerald-950">{driver.factor} (+ Contributor)</p>
+                                <p className="text-xs text-emerald-800/80 mt-0.5">{driver.description}</p>
+                              </div>
+                              <span className="text-xs font-black text-emerald-700 bg-white px-2 py-0.5 rounded border border-emerald-200 font-mono shrink-0">
+                                {driver.impact}
+                              </span>
+                            </div>
+                          ))}
+                          {selectedStudent.riskDrivers.map((driver, idx) => (
+                            <div key={`risk-${idx}`} className="p-3.5 rounded-xl bg-rose-50/60 border border-rose-200 flex items-start justify-between gap-3">
+                              <div>
+                                <p className="text-xs font-bold text-rose-950">{driver.factor} (Risk Penalty)</p>
+                                <p className="text-xs text-rose-800/80 mt-0.5">{driver.description}</p>
+                              </div>
+                              <span className="text-xs font-black text-rose-700 bg-white px-2 py-0.5 rounded border border-rose-200 font-mono shrink-0">
+                                {driver.impact}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Actionable Interventions */}
+                      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-4">
+                        <div className="flex items-center justify-between">
+                          <h3 className="font-bold text-slate-900 text-sm">Intervention Recommendations</h3>
+                          <span className="text-[10px] bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded border border-blue-200">
+                            1-Click Actions
+                          </span>
+                        </div>
+
+                        <div className="space-y-2">
+                          {selectedStudent.recommendedInterventions.map((item) => (
+                            <div key={item.id} className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/60 flex items-center justify-between gap-3">
+                              <div>
+                                <p className="text-xs font-bold text-slate-900">{item.title}</p>
+                                <p className="text-[11px] text-slate-500">Track: {item.category} • Urgency: <strong>{item.urgency}</strong></p>
+                              </div>
+                              <button
+                                onClick={() => triggerAction(item.action, selectedStudent.name)}
+                                className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition-all shadow-sm shrink-0"
+                              >
+                                {item.action}
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* PAGE 4: PITCH DECK SLIDES (KPMG PRESENTATION DELIVERABLE) */}
+              {currentRoute === 'pitch' && (
+                <div className="max-w-6xl mx-auto space-y-6 pb-12">
+                  {/* Top Slide Nav Control Bar */}
+                  <div className="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <button
+                        onClick={() => setCurrentRoute('overview')}
+                        className="text-xs font-bold text-slate-600 hover:text-slate-900 flex items-center gap-1.5"
+                      >
+                        <span>← Back to Dashboard</span>
+                      </button>
+                      <div className="h-4 w-px bg-slate-200"></div>
+                      <span className="text-xs font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">
+                        {currentSlide === 0 && "KPMG Hackathon Deliverable • Slide 1 of 5"}
+                        {currentSlide === 1 && "Data Architecture • Slide 2 of 5"}
+                        {currentSlide === 2 && "Scoring & Explainability • Slide 3 of 5"}
+                        {currentSlide === 3 && "Targeted Actions • Slide 4 of 5"}
+                        {currentSlide === 4 && "Decision Intelligence & Pitch • Slide 5 of 5"}
+                      </span>
+                    </div>
+
+                    {/* Slide Selector Indicators */}
+                    <div className="flex items-center gap-1.5">
+                      {[0, 1, 2, 3, 4].map((idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setCurrentSlide(idx)}
+                          className={`h-3 rounded-full transition-all ${
+                            currentSlide === idx ? 'bg-blue-600 w-8' : 'bg-slate-200 hover:bg-slate-300 w-3'
+                          }`}
+                          title={`Slide ${idx + 1}`}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Previous / Next Buttons */}
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => setCurrentSlide(prev => Math.max(0, prev - 1))}
+                        disabled={currentSlide === 0}
+                        className="px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-xs font-bold"
+                      >
+                        ◀ Prev
+                      </button>
+                      <button
+                        onClick={() => setCurrentSlide(prev => Math.min(4, prev + 1))}
+                        disabled={currentSlide === 4}
+                        className="px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors text-xs font-bold"
+                      >
+                        Next ▶
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Main Slide Card Container */}
+                  <div className="bg-white rounded-3xl border border-slate-200 shadow-xl p-8 md:p-12 min-h-[560px] flex flex-col justify-between relative overflow-hidden">
+                    {/* Slide Header */}
+                    <div className="border-b border-slate-100 pb-6 mb-6">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                          KPMG in India • Student Success Platform Hackathon
+                        </span>
+                        <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                          {currentSlide === 0 && "The Challenge & Vision"}
+                          {currentSlide === 1 && "30% Evaluation Weight"}
+                          {currentSlide === 2 && "25% Evaluation Weight + Bonus"}
+                          {currentSlide === 3 && "Bonus Credit Feature"}
+                          {currentSlide === 4 && "The Showstopper Feature"}
+                        </span>
+                      </div>
+                      <h2 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">
+                        {currentSlide === 0 && "Smart Campus Analytics"}
+                        {currentSlide === 1 && "Multi-Source Data Integration"}
+                        {currentSlide === 2 && "Explainable Student Success Score"}
+                        {currentSlide === 3 && "Targeted Student Segmentation"}
+                        {currentSlide === 4 && "Predictive 'What-If' Simulation & Live Demo"}
+                      </h2>
+                      <p className="text-xs md:text-sm text-slate-500 mt-1">
+                        {currentSlide === 0 && "AI-Powered Student Success Platform: Predict, Optimize & Improve"}
+                        {currentSlide === 1 && "Unifying 5 Disparate Data Streams into a Single Single Source of Truth"}
+                        {currentSlide === 2 && "Mathematical Formulation & SHAP Feature Attribution Model"}
+                        {currentSlide === 3 && "5 Actionable Clusters for Precision Interventions"}
+                        {currentSlide === 4 && "Simulating Real-Time Score Recovery to Optimize Outcomes"}
+                      </p>
+                    </div>
+
+                    {/* Slide Body */}
+                    <div className="flex-1">
+                      {/* Slide 1 Content */}
+                      {currentSlide === 0 && (
+                        <div className="space-y-6">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                            <div className="space-y-4">
+                              <span className="text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+                                The Core Challenge
+                              </span>
+                              <h3 className="text-2xl md:text-3xl font-extrabold text-slate-900 leading-tight">
+                                Disconnected Data vs. Proactive Decision Intelligence
+                              </h3>
+                              <p className="text-sm text-slate-600 leading-relaxed">
+                                Colleges generate massive amounts of data across attendance registers, LMS portals, internal assessments, and placement mock drives. Stored in disconnected silos, this data is rarely used proactively.
+                              </p>
+                              <div className="p-4 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-900 font-medium">
+                                ⚠️ <strong>The Campus Reality:</strong> By the time a student gets debarred for attendance or fails final campus placements, it is already too late for the faculty to intervene.
+                              </div>
+                            </div>
+
+                            <div className="bg-slate-900 text-white p-6 rounded-2xl shadow-xl border border-slate-800 space-y-4">
+                              <span className="text-xs font-bold text-blue-400 uppercase tracking-wider flex items-center gap-1.5">
+                                <span>✨</span>
+                                <span>Our Value Proposition</span>
+                              </span>
+                              <h4 className="text-lg font-bold text-white">Three Pillars of Decision Intelligence</h4>
+                              <div className="space-y-3 text-xs">
+                                <div className="flex items-start gap-3 p-2.5 rounded-lg bg-white/5 border border-white/10">
+                                  <span className="w-5 h-5 rounded-full bg-blue-600 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">1</span>
+                                  <div>
+                                    <strong className="text-white">Predict:</strong>
+                                    <p className="text-slate-300 mt-0.5">Detect student failure risks 6–8 weeks before final semester exams.</p>
+                                  </div>
+                                </div>
+                                <div className="flex items-start gap-3 p-2.5 rounded-lg bg-white/5 border border-white/10">
+                                  <span className="w-5 h-5 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">2</span>
+                                  <div>
+                                    <strong className="text-white">Optimize:</strong>
+                                    <p className="text-slate-300 mt-0.5">Cluster students into 5 actionable intervention tracks rather than blanket warnings.</p>
+                                  </div>
+                                </div>
+                                <div className="flex items-start gap-3 p-2.5 rounded-lg bg-white/5 border border-white/10">
+                                  <span className="w-5 h-5 rounded-full bg-emerald-600 flex items-center justify-center font-bold text-[10px] shrink-0 mt-0.5">3</span>
+                                  <div>
+                                    <strong className="text-white">Improve:</strong>
+                                    <p className="text-slate-300 mt-0.5">Empower deans with What-If simulations and 1-click targeted actions.</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Slide 2 Content */}
+                      {currentSlide === 1 && (
+                        <div className="space-y-6">
+                          <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+                            {[
+                              { title: "Academic Records", weight: "30%", icon: "📚", items: ["Cumulative CGPA", "Mid-Term Scores", "Backlog History", "Subject Failures"] },
+                              { title: "Placement Benchmarks", weight: "25%", icon: "💼", items: ["Aptitude Percentile", "Coding Benchmarks", "Mock HR Rounds", "Tier-1 Eligibility"] },
+                              { title: "Attendance Quorum", weight: "20%", icon: "⏰", items: ["Lecture Quorum %", "Laboratory Presence", "Medical Leave Logs", "Debarment Threshold"] },
+                              { title: "LMS Engagement", weight: "15%", icon: "💻", items: ["Weekly Login Cadence", "Assignment Turnaround", "Forum Participation", "Quiz Deadlines"] },
+                              { title: "Skills & Co-Curricular", weight: "10%", icon: "🏆", items: ["Hackathon Awards", "Soft-Skills Assessment", "Internship Ratings", "Faculty Feedback"] },
+                            ].map((col, idx) => (
+                              <div key={idx} className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                                <div>
+                                  <div className="text-2xl mb-2">{col.icon}</div>
+                                  <div className="flex items-center justify-between">
+                                    <h5 className="font-bold text-xs text-slate-900">{col.title}</h5>
+                                    <span className="text-[10px] font-extrabold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded">{col.weight}</span>
+                                  </div>
+                                  <ul className="mt-3 space-y-1 text-[11px] text-slate-500">
+                                    {col.items.map((it, i) => (
+                                      <li key={i} className="flex items-center gap-1.5">
+                                        <span className="w-1 h-1 rounded-full bg-slate-400"></span>
+                                        <span>{it}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+
+                          <div className="p-4 bg-slate-900 text-white rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div className="flex items-center gap-3">
+                              <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center font-bold">1.2K</div>
+                              <div>
+                                <p className="text-xs font-bold text-white">1,240 Enrolled Undergraduates Unified in Real-Time</p>
+                                <p className="text-[11px] text-slate-400">Automated ETL pipeline cleanses, normalizes, and feeds the ML feature store.</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-3 text-xs">
+                              <span className="px-3 py-1 bg-white/10 rounded-lg text-emerald-400 font-mono">100% Data Cleansed</span>
+                              <span className="px-3 py-1 bg-white/10 rounded-lg text-blue-400 font-mono">0 Sync Latency</span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Slide 3 Content */}
+                      {currentSlide === 2 && (
+                        <div className="space-y-6">
+                          <div className="p-5 bg-gradient-to-r from-blue-900 to-indigo-950 text-white rounded-2xl shadow-md border border-blue-800 flex flex-col md:flex-row items-center justify-between gap-4">
+                            <div>
+                              <span className="text-[10px] uppercase font-bold text-blue-300">The Mathematical Formula</span>
+                              <h4 className="text-lg md:text-xl font-mono font-black mt-1">
+                                Success Score = 0.30·Academic + 0.25·Placement + 0.20·Attendance + 0.15·LMS + 0.10·Skills
+                              </h4>
+                            </div>
+                            <div className="bg-white/10 px-4 py-2 rounded-xl text-center shrink-0">
+                              <span className="text-[10px] uppercase font-bold text-blue-200">Risk Score Formula</span>
+                              <p className="text-lg font-mono font-black">Risk = 100 - Success</p>
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="p-5 bg-white rounded-2xl border border-slate-200 space-y-3">
+                              <h5 className="font-bold text-xs uppercase tracking-wider text-slate-500">
+                                Risk Tier Thresholds
+                              </h5>
+                              <div className="space-y-2 text-xs">
+                                <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 flex justify-between items-center">
+                                  <div>
+                                    <span className="font-bold text-emerald-950">Safe Tier (&ge; 75%)</span>
+                                    <p className="text-[11px] text-emerald-800">On track for honors &amp; Tier-1 corporate recruitment</p>
+                                  </div>
+                                  <span className="font-bold font-mono text-emerald-700">744 Students (60%)</span>
+                                </div>
+                                <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 flex justify-between items-center">
+                                  <div>
+                                    <span className="font-bold text-amber-950">Moderate Risk Tier (50–74%)</span>
+                                    <p className="text-[11px] text-amber-800">Early warning; automated LMS &amp; study nudges dispatched</p>
+                                  </div>
+                                  <span className="font-bold font-mono text-amber-700">328 Students (26.5%)</span>
+                                </div>
+                                <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 flex justify-between items-center">
+                                  <div>
+                                    <span className="font-bold text-rose-950">High Risk Tier (&lt; 50%)</span>
+                                    <p className="text-[11px] text-rose-800">Debarment or placement failure hazard; urgent faculty intervention</p>
+                                  </div>
+                                  <span className="font-bold font-mono text-rose-700">168 Students (13.5%)</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div className="p-5 bg-white rounded-2xl border border-slate-200 space-y-3">
+                              <div className="flex items-center justify-between">
+                                <h5 className="font-bold text-xs uppercase tracking-wider text-slate-500">
+                                  SHAP Explainability (Why was student flagged?)
+                                </h5>
+                                <span className="text-[10px] bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded">XAI Model</span>
+                              </div>
+                              <p className="text-xs text-slate-600 leading-relaxed">
+                                Rather than treating scores as black boxes, SHAP attribution reveals the exact point contribution for every student indicator:
+                              </p>
+                              <div className="space-y-2 text-xs">
+                                <div className="p-2.5 bg-emerald-50/70 rounded-lg border border-emerald-200 flex justify-between items-center">
+                                  <span className="text-emerald-950 font-medium">✓ High LMS Assignment Turnaround (Top 5%)</span>
+                                  <span className="font-bold font-mono text-emerald-700">+16 pts</span>
+                                </div>
+                                <div className="p-2.5 bg-rose-50/70 rounded-lg border border-rose-200 flex justify-between items-center">
+                                  <span className="text-rose-950 font-medium">⚠ Severe LMS Inactivity (Zero Logins in 21 Days)</span>
+                                  <span className="font-bold font-mono text-rose-700">-24 pts</span>
+                                </div>
+                                <div className="p-2.5 bg-rose-50/70 rounded-lg border border-rose-200 flex justify-between items-center">
+                                  <span className="text-rose-950 font-medium">⚠ Attendance Quorum Below 65% Minimum</span>
+                                  <span className="font-bold font-mono text-rose-700">-26 pts</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Slide 4 Content */}
+                      {currentSlide === 3 && (
+                        <div className="space-y-6">
+                          <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+                            {[
+                              { title: "Attendance Recovery", count: 78, urgent: 32, icon: "⏰", desc: "Attendance < 65% in multiple subjects. Action: Makeup contract & dean hearing." },
+                              { title: "Academic Support", count: 92, urgent: 45, icon: "📖", desc: "Mid-term drops and course backlogs. Action: Peer tutoring & remedial assignments." },
+                              { title: "Coding Bootcamp", count: 84, urgent: 38, icon: "💻", desc: "High CGPA (>8.0) but low coding scores. Action: Placement fast-track bootcamp." },
+                              { title: "Mentorship Required", count: 65, urgent: 18, icon: "👤", desc: "Mock interview anxiety and soft-skill gaps. Action: 1-on-1 alumni coaching." },
+                              { title: "Financial / General", count: 42, urgent: 12, icon: "🤝", desc: "Personal emergencies and fee deferral needs. Action: Student welfare outreach." },
+                            ].map((track, idx) => (
+                              <div key={idx} className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                                <div>
+                                  <div className="text-2xl mb-2">{track.icon}</div>
+                                  <h5 className="font-bold text-xs text-slate-900">{track.title}</h5>
+                                  <div className="my-2 flex items-baseline gap-1">
+                                    <span className="text-xl font-black font-mono text-slate-900">{track.count}</span>
+                                    <span className="text-[10px] text-slate-400">students</span>
+                                  </div>
+                                  <p className="text-[11px] text-slate-500 leading-relaxed">{track.desc}</p>
+                                </div>
+                                <div className="mt-3 pt-2 border-t border-slate-100 text-[10px] font-bold text-rose-600">
+                                  {track.urgent} High-Urgency Cases
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+
+                          <div className="p-4 bg-slate-100 rounded-xl border border-slate-200 flex items-center justify-between text-xs text-slate-600">
+                            <span className="font-medium">
+                              💡 <strong>Why This Wins for KPMG:</strong> Most campus dashboards give generic warnings. Our platform segments students into specific intervention tracks that match available university faculty and placement resources.
+                            </span>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Slide 5 Content */}
+                      {currentSlide === 4 && (
+                        <div className="space-y-6">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                            <div className="space-y-4">
+                              <span className="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                                Decision Intelligence in Action
+                              </span>
+                              <h3 className="text-2xl font-extrabold text-slate-900 leading-tight">
+                                Simulating the Future Before Taking Action
+                              </h3>
+                              <p className="text-sm text-slate-600 leading-relaxed">
+                                Administrators can test interventions in real time:
+                              </p>
+                              <div className="space-y-2 text-xs bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <div className="flex items-center gap-2 text-slate-700">
+                                  <span>✅</span>
+                                  <span><strong>+12% Attendance Recovery:</strong> Adds +10 pts to Success Score</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-slate-700">
+                                  <span>✅</span>
+                                  <span><strong>Placement Coding Bootcamp:</strong> Adds +12 pts to Placement Readiness</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-slate-700">
+                                  <span>✅</span>
+                                  <span><strong>Remedial LMS Catch-Up:</strong> Adds +8 pts to Engagement Index</span>
+                                </div>
+                              </div>
+                              <div className="p-3 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-900 font-semibold">
+                                🎯 <strong>Result:</strong> Rohan Verma's score leaps from <strong>42% &rarr; 68%</strong>, lifting him out of critical debarment danger!
+                              </div>
+                            </div>
+
+                            <div className="bg-slate-900 text-white p-6 rounded-2xl shadow-xl border border-slate-800 text-center space-y-4">
+                              <div className="w-16 h-16 rounded-2xl bg-blue-600 text-white flex items-center justify-center mx-auto text-2xl shadow-lg">
+                                🚀
+                              </div>
+                              <h4 className="text-xl font-bold text-white">Experience the Live Working Prototype</h4>
+                              <p className="text-xs text-slate-300 max-w-sm mx-auto leading-relaxed">
+                                Click below to jump directly into the interactive dashboard and test live search, radar charts, and decision simulations.
+                              </p>
+                              <div className="pt-2 flex flex-col sm:flex-row gap-3 justify-center">
+                                <button
+                                  onClick={() => setCurrentRoute('overview')}
+                                  className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center justify-center gap-2"
+                                >
+                                  <span>▶ Launch Campus Overview</span>
+                                </button>
+                                <button
+                                  onClick={() => { setSelectedStudentId('STU-1003'); setCurrentRoute('profile'); }}
+                                  className="px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold transition-all border border-white/20 flex items-center justify-center gap-2"
+                                >
+                                  <span>Inspect Rohan Verma Profile</span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Slide Footer */}
+                    <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+                      <span>Click Prev / Next buttons or dots to navigate</span>
+                      <span className="font-mono">Slide {currentSlide + 1} / 5</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </main>
+
+
+          {/* DETAILED STUDENT QUICK VIEW MODAL (PROMPT 2, 3, 5) */}
+          {activeModalStudent && (
+            <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+              <div className="bg-white rounded-3xl border border-slate-200 shadow-2xl w-full max-w-2xl overflow-hidden my-8">
+                {/* Modal Header */}
+                <div className="p-6 bg-gradient-to-r from-blue-950 to-slate-900 text-white flex items-start justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 rounded-2xl bg-blue-600 text-white flex items-center justify-center font-black text-xl shadow-md shrink-0">
+                      {activeModalStudent.name.split(' ').map((n) => n[0]).join('')}
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2.5">
+                        <h3 className="text-xl font-bold">{activeModalStudent.name}</h3>
+                        <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full border ${
+                          activeModalStudent.riskLevel === 'High' ? 'bg-rose-500/20 text-rose-300 border-rose-500/40' : activeModalStudent.riskLevel === 'Medium' ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                        }`}>
+                          {activeModalStudent.riskLevel} Risk Tier
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-300 mt-1">
+                        {activeModalStudent.rollNo} • {activeModalStudent.major} • {activeModalStudent.year} (Semester {activeModalStudent.semester})
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => setActiveModalStudent(null)}
+                    className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                {/* Modal Body */}
+                <div className="p-6 space-y-5 max-h-[75vh] overflow-y-auto">
+                  {/* 5 Core Metrics (Prompt 2) */}
+                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-center">
+                      <span className="text-[10px] font-bold uppercase text-slate-400">Risk Score</span>
+                      <p className={`text-lg font-black mt-1 font-mono ${activeModalStudent.riskLevel === 'High' ? 'text-rose-600' : activeModalStudent.riskLevel === 'Medium' ? 'text-amber-600' : 'text-emerald-600'}`}>
+                        {activeModalStudent.riskScore}%
+                      </p>
+                      <span className="text-[10px] text-slate-400">Score: {activeModalStudent.successScore}/100</span>
+                    </div>
+
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-center">
+                      <span className="text-[10px] font-bold uppercase text-slate-400">Attendance</span>
+                      <p className={`text-lg font-black mt-1 font-mono ${activeModalStudent.attendanceRate < 65 ? 'text-rose-600' : 'text-slate-900'}`}>
+                        {activeModalStudent.attendanceRate}%
+                      </p>
+                      <span className="text-[10px] text-slate-400">Target &ge; 75%</span>
+                    </div>
+
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-center">
+                      <span className="text-[10px] font-bold uppercase text-slate-400">CGPA</span>
+                      <p className="text-lg font-black mt-1 font-mono text-slate-900">{activeModalStudent.cgpa}</p>
+                      <span className="text-[10px] text-slate-400">Scale / 10.0</span>
+                    </div>
+
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-center">
+                      <span className="text-[10px] font-bold uppercase text-slate-400">Assignments</span>
+                      <p className="text-lg font-black mt-1 font-mono text-slate-900">{activeModalStudent.assignmentCompletionRate}%</p>
+                      <span className="text-[10px] text-slate-400">LMS Completed</span>
+                    </div>
+
+                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-center col-span-2 sm:col-span-1">
+                      <span className="text-[10px] font-bold uppercase text-slate-400">Engagement</span>
+                      <p className="text-lg font-black mt-1 font-mono text-slate-900">{activeModalStudent.engagementScore}/100</p>
+                      <span className="text-[10px] text-slate-400">Portal Index</span>
+                    </div>
+                  </div>
+
+                  {/* Why Flagged (Prompt 3) */}
+                  <div className="p-4 bg-indigo-50/70 rounded-2xl border border-indigo-200/80">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-900 block mb-1">
+                      Why was this student flagged? (Explainable AI Engine)
+                    </span>
+                    <p className="text-xs text-indigo-950 font-medium leading-relaxed">
+                      {activeModalStudent.whyFlagged}
+                    </p>
+                  </div>
+
+                  {/* Risk Factors & Drivers */}
+                  <div className="space-y-2">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                      Score Attributions (SHAP Positive vs Risk Penalties)
+                    </span>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {activeModalStudent.positiveDrivers.map((item, idx) => (
+                        <div key={`modal-pos-${idx}`} className="p-2.5 bg-emerald-50 rounded-xl border border-emerald-200 text-xs flex justify-between">
+                          <div>
+                            <p className="font-bold text-emerald-950">{item.factor}</p>
+                            <p className="text-[10px] text-emerald-800">{item.description}</p>
+                          </div>
+                          <span className="font-black text-emerald-700 font-mono">{item.impact}</span>
+                        </div>
+                      ))}
+                      {activeModalStudent.riskDrivers.map((item, idx) => (
+                        <div key={`modal-risk-${idx}`} className="p-2.5 bg-rose-50 rounded-xl border border-rose-200 text-xs flex justify-between">
+                          <div>
+                            <p className="font-bold text-rose-950">{item.factor}</p>
+                            <p className="text-[10px] text-rose-800">{item.description}</p>
+                          </div>
+                          <span className="font-black text-rose-700 font-mono">{item.impact}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Recommended Interventions (Prompt 5) */}
+                  <div className="space-y-2 pt-2 border-t border-slate-100">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 block">
+                      Recommended Interventions ({activeModalStudent.interventionCategory})
+                    </span>
+                    {activeModalStudent.recommendedInterventions.map((item) => (
+                      <div key={item.id} className="p-3 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between text-xs">
+                        <div>
+                          <p className="font-bold text-slate-900">{item.title}</p>
+                          <p className="text-[11px] text-slate-500">Priority: <strong>{item.urgency}</strong> • Status: {item.status}</p>
+                        </div>
+                        <button
+                          onClick={() => triggerAction(item.action, activeModalStudent.name)}
+                          className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold shadow-sm"
+                        >
+                          {item.action}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Modal Footer */}
+                <div className="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+                  <button
+                    onClick={() => setActiveModalStudent(null)}
+                    className="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900"
+                  >
+                    Close
+                  </button>
+                  <button
+                    onClick={() => {
+                      setSelectedStudentId(activeModalStudent.id);
+                      setActiveModalStudent(null);
+                      setCurrentRoute('profile');
+                    }}
+                    className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold"
+                  >
+                    Open Full Radar &amp; AI Diagnostic Page →
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* OFFICIAL DEAN INTERVENTION BRIEF MODAL (PRINT-READY) */}
+          {showReportModal && (
+            <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+              <div className="bg-white rounded-3xl border border-slate-300 shadow-2xl w-full max-w-2xl overflow-hidden my-8 p-8 space-y-6">
+                <div className="flex items-start justify-between border-b border-slate-200 pb-4">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg font-black text-blue-900">KPMG</span>
+                      <span className="text-xs uppercase tracking-wider font-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded">
+                        India
+                      </span>
+                    </div>
+                    <h3 className="text-lg font-bold text-slate-900 mt-1">
+                      Official Student Diagnostic &amp; Intervention Brief
+                    </h3>
+                    <p className="text-xs text-slate-500">
+                      Document Reference: KPMG-SCA-{selectedStudent.id}-{new Date().getFullYear()}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setShowReportModal(false)}
+                    className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center"
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 text-xs bg-slate-50 p-4 rounded-xl border border-slate-200">
+                  <div>
+                    <p className="text-slate-400 font-bold uppercase text-[10px]">Student Name</p>
+                    <p className="text-slate-900 font-bold text-sm">{selectedStudent.name}</p>
+                    <p className="text-slate-500 font-mono mt-0.5">Roll: {selectedStudent.rollNo}</p>
+                  </div>
+                  <div>
+                    <p className="text-slate-400 font-bold uppercase text-[10px]">Program &amp; Department</p>
+                    <p className="text-slate-900 font-bold text-sm">{selectedStudent.major}</p>
+                    <p className="text-slate-500 mt-0.5">{selectedStudent.year} (Sem {selectedStudent.semester})</p>
+                  </div>
+                  <div>
+                    <p className="text-slate-400 font-bold uppercase text-[10px]">Current Risk Level</p>
+                    <p className="text-rose-600 font-extrabold text-sm">{selectedStudent.riskScore}% ({selectedStudent.riskLevel} Tier)</p>
+                  </div>
+                  <div>
+                    <p className="text-slate-400 font-bold uppercase text-[10px]">Intervention Track</p>
+                    <p className="text-slate-900 font-bold text-sm">{selectedStudent.interventionCategory}</p>
+                  </div>
+                </div>
+
+                <div className="space-y-2 text-xs">
+                  <p className="font-bold uppercase tracking-wider text-slate-500 text-[10px]">
+                    AI Diagnostic Summary &amp; Cause of Flagging:
+                  </p>
+                  <p className="p-3 bg-slate-50 border border-slate-200 rounded-xl leading-relaxed text-slate-700">
+                    {selectedStudent.whyFlagged}
+                  </p>
+                </div>
+
+                <div className="space-y-2 text-xs">
+                  <p className="font-bold uppercase tracking-wider text-slate-500 text-[10px]">
+                    Authorized Action Items Dispatched:
+                  </p>
+                  <ul className="list-disc pl-5 space-y-1 text-slate-700">
+                    {selectedStudent.recommendedInterventions.map(item => (
+                      <li key={item.id}>
+                        <strong>{item.title}</strong> &mdash; Priority: {item.urgency} ({item.status})
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="pt-4 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+                  <div>
+                    <p className="font-bold text-slate-800">Dr. V. Reddy</p>
+                    <p className="text-[10px]">Dean of Academics &amp; Student Affairs</p>
+                  </div>
+                  <button
+                    onClick={() => { window.print(); setShowReportModal(false); }}
+                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-colors"
+                  >
+                    🖨️ Print Document
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

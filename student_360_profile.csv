@@ -1,0 +1,251 @@
+student_id,name,gender,department,year,semester,cgpa,backlogs,midterm_score,attendance_rate,lab_attendance,lms_logins,assignment_completion_rate,forum_posts,event_participation,hackathons_participated,aptitude_score,coding_score,mock_interview_score,technical_skills,soft_skills,faculty_rating,satisfaction_score
+STU-1001,Aarav Sharma,Male,Computer Science,4th Year,7,8.92,0,91.0,94.0,96.0,48,98.0,14,5,3,88.0,86.0,84.0,88.0,82.0,4.8,4.6
+STU-1002,Ananya Iyer,Female,Electronics & Comm,4th Year,7,8.75,0,88.0,88.0,90.0,38,92.0,6,2,0,76.0,48.0,56.0,82.0,68.0,4.5,4.2
+STU-1003,Rohan Verma,Male,Information Tech,3rd Year,5,5.8,2,54.0,64.0,68.0,11,48.0,1,0,0,52.0,42.0,48.0,58.0,54.0,2.9,3.1
+STU-1004,Pooja Sundaram,Female,Computer Science,2nd Year,3,6.2,1,60.0,71.0,74.0,22,65.0,4,2,1,64.0,61.0,65.0,66.0,68.0,3.4,3.6
+STU-1005,Vikram Malhotra,Male,Mechanical Engg,4th Year,7,7.1,0,72.0,79.0,82.0,28,78.0,5,3,1,72.0,55.0,59.0,71.0,67.0,3.8,3.9
+STU-1006,Sneha Patel,Female,Computer Science,4th Year,7,9.35,0,96.0,96.0,98.0,54,100.0,18,6,4,94.0,92.0,90.0,95.0,88.0,4.9,4.8
+STU-1007,Aditya Rao,Male,Electronics & Comm,3rd Year,5,6.45,1,62.0,62.0,65.0,14,55.0,2,1,0,58.0,50.0,52.0,63.0,60.0,3.2,3.3
+STU-1008,Meera Nambiar,Female,Information Tech,2nd Year,3,8.4,0,85.0,91.0,93.0,42,94.0,11,4,2,82.0,78.0,74.0,84.0,79.0,4.4,4.5
+STU-1009,Kavita Krishnan,Female,Mechanical Engg,3rd Year,5,6.85,0,69.0,76.0,80.0,25,72.0,4,2,1,68.0,60.0,62.0,69.0,66.0,3.6,3.7
+STU-1010,Tanmay Deshmukh,Male,Computer Science,1st Year,1,7.2,0,74.0,81.0,84.0,30,80.0,7,3,1,70.0,68.0,70.0,72.0,71.0,3.9,4.0
+STU-1011,Nikhil Gupta,Male,Information Tech,2nd Year,3,5.95,1,58.0,61.0,63.0,9,42.0,0,0,0,49.0,44.0,46.0,55.0,52.0,2.8,2.9
+STU-1012,Divya Ranganathan,Female,Electronics & Comm,1st Year,1,8.15,0,82.0,89.0,92.0,39,90.0,9,3,1,79.0,75.0,72.0,81.0,77.0,4.3,4.4
+STU-1013,Riya Chowdhury,Female,Information Tech,1st Year,2,9.63,0,75.4,97.6,89.3,45,91.4,15,4,0,85.6,96.1,87.4,86.8,72.4,4.5,5.0
+STU-1014,Vivaan Joshi,Female,Information Tech,1st Year,2,5.59,3,43.3,53.9,66.2,4,36.4,0,0,0,30.1,37.6,33.9,36.4,42.9,2.3,3.5
+STU-1015,Pari Verma,Female,Mechanical Engg,3rd Year,5,6.24,0,65.3,74.3,80.6,31,60.7,6,1,0,74.0,60.4,74.3,65.8,71.8,3.4,3.6
+STU-1016,Naveen Kumar,Female,Mechanical Engg,1st Year,2,6.82,0,70.1,74.1,77.9,19,63.7,6,3,0,60.8,66.0,69.3,69.2,60.6,4.2,3.9
+STU-1017,Arjun Patel,Female,Information Tech,4th Year,7,9.32,0,77.7,80.9,82.7,38,99.6,8,1,2,82.1,80.0,85.4,88.5,71.1,4.2,4.6
+STU-1018,Harsh Sharma,Female,Computer Science,1st Year,2,9.03,1,96.7,96.5,92.8,44,91.5,5,3,3,77.7,74.4,79.4,73.0,85.5,4.2,4.6
+STU-1019,Dev Joshi,Female,Information Tech,2nd Year,3,8.36,0,91.0,91.9,96.9,28,88.4,16,2,3,91.7,78.2,93.3,94.3,80.7,4.7,4.7
+STU-1020,Isha Deshmukh,Male,Information Tech,4th Year,8,8.16,0,80.1,81.5,80.8,28,91.9,2,4,0,48.1,40.0,47.9,65.1,63.5,4.4,4.2
+STU-1021,Simran Das,Male,Information Tech,1st Year,1,7.27,0,57.2,72.1,83.7,26,77.3,6,0,1,73.9,69.1,56.6,59.4,74.7,3.6,3.6
+STU-1022,Riya Singh,Male,Computer Science,4th Year,8,6.65,0,69.8,78.4,77.6,33,62.2,3,1,0,72.0,70.3,71.5,70.7,68.6,3.4,3.6
+STU-1023,Neha Sharma,Female,Computer Science,2nd Year,4,7.82,1,76.0,96.9,91.0,35,98.4,7,6,2,77.9,96.5,92.3,83.8,85.5,4.1,4.0
+STU-1024,Tanvi Kumar,Female,Mechanical Engg,2nd Year,4,4.36,4,57.7,62.0,60.7,2,40.3,0,1,0,52.8,43.0,49.0,49.5,47.3,2.7,3.5
+STU-1025,Arjun Sharma,Female,Computer Science,2nd Year,4,9.17,0,81.4,91.2,85.9,36,91.8,3,0,0,42.4,35.2,43.4,65.4,59.6,4.4,4.3
+STU-1026,Pooja Iyer,Male,Computer Science,2nd Year,4,8.56,0,79.7,84.8,86.7,28,84.6,4,1,1,83.9,82.3,90.8,80.0,90.4,5.0,3.9
+STU-1027,Riya Kulkarni,Male,Electronics & Comm,3rd Year,5,9.37,0,93.5,97.2,92.5,26,87.0,5,2,2,95.5,76.9,83.1,90.1,89.9,4.4,4.8
+STU-1028,Riya Bhat,Female,Computer Science,2nd Year,4,8.79,0,89.6,84.6,83.3,49,89.2,19,1,1,79.7,94.9,81.8,89.4,74.3,4.0,3.8
+STU-1029,Arjun Menon,Female,Information Tech,1st Year,2,7.98,0,85.6,83.9,88.2,38,86.6,14,0,2,94.5,95.6,71.5,79.2,90.2,4.7,4.0
+STU-1030,Pari Bose,Male,Mechanical Engg,2nd Year,4,9.04,0,85.6,94.2,82.6,48,82.7,6,3,2,77.5,79.3,70.5,80.4,75.3,4.2,3.9
+STU-1031,Riya Mishra,Female,Computer Science,4th Year,8,9.38,0,77.0,90.2,92.0,32,91.7,15,1,2,80.0,97.6,85.1,78.2,72.5,4.0,4.1
+STU-1032,Vihaan Rao,Female,Information Tech,2nd Year,3,7.91,0,76.2,80.3,93.8,48,82.2,5,2,4,85.0,82.3,91.0,77.3,94.2,4.7,4.0
+STU-1033,Sneha Deshmukh,Female,Electronics & Comm,1st Year,2,7.12,0,64.6,84.0,75.8,17,61.0,2,2,0,70.7,56.8,57.8,58.0,57.3,3.7,3.8
+STU-1034,Naveen Deshmukh,Male,Information Tech,4th Year,8,8.62,0,97.8,83.9,88.4,25,94.8,9,0,5,76.6,87.0,92.7,80.2,84.7,4.6,4.3
+STU-1035,Akash Das,Female,Electronics & Comm,1st Year,2,8.88,0,88.3,86.8,88.7,26,90.9,11,3,2,94.6,82.9,88.5,86.9,94.9,4.7,4.6
+STU-1036,Karan Sharma,Female,Mechanical Engg,2nd Year,4,9.32,0,82.9,95.6,83.9,28,89.1,7,2,1,90.2,87.2,87.3,86.1,76.3,4.2,4.0
+STU-1037,Ishaan Kumar,Female,Information Tech,4th Year,7,8.72,1,78.5,91.1,90.6,49,85.1,11,6,2,90.6,96.0,93.1,83.7,72.8,5.0,4.8
+STU-1038,Pooja Sharma,Male,Information Tech,3rd Year,5,8.51,0,81.8,80.8,85.0,39,90.8,3,1,0,49.7,50.6,48.2,60.2,63.3,4.2,3.7
+STU-1039,Vikram Singh,Female,Information Tech,1st Year,2,8.42,0,81.4,84.2,85.6,41,83.6,7,4,1,81.1,80.8,90.0,81.1,81.7,4.5,4.3
+STU-1040,Kavya Kumar,Male,Information Tech,1st Year,2,9.23,0,87.3,89.1,90.4,43,83.1,4,1,1,95.1,83.8,90.0,97.5,91.0,4.8,4.3
+STU-1041,Aditya Kumar,Female,Computer Science,3rd Year,5,6.41,1,59.5,71.5,74.4,28,72.1,6,2,0,61.7,72.9,55.3,59.5,59.2,3.2,3.4
+STU-1042,Swati Menon,Female,Computer Science,3rd Year,5,8.48,0,83.7,91.2,86.6,29,86.9,19,5,4,70.6,76.1,83.5,88.5,76.4,4.0,4.8
+STU-1043,Vihaan Mishra,Female,Electronics & Comm,1st Year,1,7.19,0,70.5,77.5,71.2,19,73.0,2,1,0,61.1,60.3,69.6,62.3,67.7,3.7,3.8
+STU-1044,Riya Das,Female,Information Tech,4th Year,8,9.28,0,88.9,84.7,88.6,32,88.7,7,4,2,70.9,75.9,84.9,73.3,82.4,4.5,4.2
+STU-1045,Tanvi Verma,Male,Computer Science,1st Year,2,9.26,0,90.8,88.3,86.2,27,81.6,15,3,0,95.7,72.1,93.8,83.6,74.6,4.5,4.8
+STU-1046,Ayaan Deshmukh,Male,Computer Science,2nd Year,4,5.9,1,46.3,52.4,69.8,14,46.7,1,0,0,55.0,35.6,39.5,41.3,37.4,3.1,2.7
+STU-1047,Ayaan Menon,Male,Electronics & Comm,1st Year,2,5.69,1,45.5,58.4,62.9,9,35.8,0,0,0,47.4,29.5,44.5,36.3,41.3,2.8,3.4
+STU-1048,Neha Mishra,Female,Computer Science,4th Year,7,8.55,0,79.0,80.4,93.1,42,78.7,3,5,0,48.6,45.7,57.7,69.8,63.8,4.1,3.9
+STU-1049,Arjun Sharma,Female,Computer Science,3rd Year,5,8.51,0,81.8,84.4,82.7,25,98.2,18,3,2,81.7,94.4,93.6,84.2,85.3,4.0,5.0
+STU-1050,Ayaan Bhat,Male,Electronics & Comm,2nd Year,3,9.46,0,76.1,87.3,82.6,50,95.6,9,4,1,84.4,82.7,94.9,95.3,81.6,4.5,4.7
+STU-1051,Neha Gupta,Female,Information Tech,1st Year,2,6.75,0,60.2,77.2,70.8,16,77.2,1,3,0,55.1,68.9,56.0,67.1,74.2,3.3,4.1
+STU-1052,Ananya Deshmukh,Female,Mechanical Engg,1st Year,2,8.83,0,88.1,92.6,91.2,37,85.3,9,3,0,79.4,75.2,93.3,74.8,87.5,4.0,4.9
+STU-1053,Manish Joshi,Female,Mechanical Engg,3rd Year,5,9.29,0,93.8,95.8,90.6,31,83.9,16,5,1,91.3,84.2,94.1,80.9,85.8,4.9,3.9
+STU-1054,Vihaan Bhat,Female,Mechanical Engg,2nd Year,4,8.4,0,76.5,91.1,87.9,50,81.5,5,6,0,79.1,82.7,89.3,89.8,81.1,4.1,5.0
+STU-1055,Riya Patel,Male,Computer Science,3rd Year,5,9.39,0,80.1,81.6,93.6,46,82.6,6,4,2,97.6,80.3,92.4,78.0,75.3,3.8,4.6
+STU-1056,Saanvi Menon,Male,Mechanical Engg,4th Year,7,6.14,1,55.0,63.5,65.4,3,49.0,2,1,0,52.8,47.1,33.7,44.2,35.0,2.9,3.2
+STU-1057,Sneha Reddy,Male,Information Tech,4th Year,7,8.12,0,82.5,91.2,89.4,37,83.0,8,1,2,89.5,93.8,89.5,73.0,82.0,3.9,4.1
+STU-1058,Harsh Bose,Female,Information Tech,2nd Year,4,7.04,1,55.2,74.9,79.3,15,77.7,6,0,0,64.1,57.7,66.4,69.7,71.0,3.4,3.4
+STU-1059,Akash Rao,Male,Electronics & Comm,3rd Year,6,8.99,0,89.1,85.7,97.9,32,94.3,17,6,1,74.6,81.2,88.1,87.4,86.3,4.4,4.5
+STU-1060,Meera Das,Female,Computer Science,4th Year,7,9.38,0,86.5,90.6,94.2,46,86.6,11,4,0,77.2,81.9,91.7,90.9,88.6,4.3,4.2
+STU-1061,Sneha Menon,Male,Electronics & Comm,4th Year,7,8.68,0,86.2,96.6,97.3,30,93.1,6,4,1,90.0,95.3,74.5,78.2,94.3,4.0,4.8
+STU-1062,Aadhya Singh,Male,Mechanical Engg,2nd Year,3,8.13,0,97.3,84.9,93.2,25,95.5,11,2,2,82.6,88.1,73.6,83.7,84.7,4.9,4.1
+STU-1063,Sneha Rao,Male,Electronics & Comm,1st Year,2,5.15,3,53.5,59.7,67.4,13,43.5,1,1,0,35.8,21.4,42.8,39.5,38.6,2.3,2.6
+STU-1064,Aadhya Chowdhury,Female,Mechanical Engg,1st Year,2,9.14,0,75.1,94.3,89.6,44,86.6,9,3,0,40.5,40.2,54.7,58.0,62.1,4.6,3.6
+STU-1065,Ayaan Nair,Male,Electronics & Comm,2nd Year,3,5.59,3,56.7,61.7,59.9,2,50.8,2,0,0,30.8,46.1,43.8,48.5,39.3,3.0,2.9
+STU-1066,Arjun Gupta,Female,Information Tech,4th Year,8,9.2,0,75.8,94.7,86.1,35,90.0,6,4,0,52.0,48.7,55.7,67.0,57.8,4.5,3.6
+STU-1067,Reyansh Bose,Male,Mechanical Engg,2nd Year,3,6.88,0,65.4,78.9,79.8,17,64.5,2,1,1,66.5,65.8,74.0,72.4,73.3,4.0,3.3
+STU-1068,Arjun Verma,Female,Computer Science,3rd Year,6,5.15,2,47.6,62.9,64.3,12,30.5,2,0,0,52.4,22.0,49.1,48.1,42.6,2.4,3.0
+STU-1069,Meera Verma,Female,Computer Science,4th Year,8,8.85,0,96.4,90.1,91.9,34,92.2,5,4,2,78.3,91.8,74.6,95.9,80.6,3.9,4.8
+STU-1070,Ananya Gupta,Female,Computer Science,3rd Year,6,8.15,0,95.8,94.6,91.5,51,95.6,5,5,1,76.6,94.1,81.8,85.9,74.5,4.2,4.1
+STU-1071,Reyansh Rao,Female,Computer Science,2nd Year,3,8.99,0,97.7,82.6,93.8,27,88.9,16,4,2,72.2,70.6,92.4,77.0,78.1,4.1,4.2
+STU-1072,Vihaan Mishra,Male,Mechanical Engg,2nd Year,4,9.4,0,87.4,96.7,93.1,46,84.6,13,6,0,85.7,96.7,74.4,89.9,75.0,4.4,3.9
+STU-1073,Kavya Chowdhury,Male,Mechanical Engg,4th Year,8,9.39,0,80.4,87.6,84.6,29,94.7,11,4,1,93.1,91.5,87.7,72.9,77.6,4.1,4.2
+STU-1074,Rahul Verma,Male,Computer Science,1st Year,1,8.41,0,85.3,91.4,90.8,27,95.7,18,4,4,92.1,77.1,72.0,82.5,74.3,4.6,4.2
+STU-1075,Sneha Menon,Female,Information Tech,1st Year,2,7.73,0,89.7,93.8,87.3,33,93.0,7,1,0,47.2,37.5,48.6,56.0,50.5,3.9,4.4
+STU-1076,Saanvi Mishra,Male,Information Tech,4th Year,8,8.36,0,75.0,80.3,92.2,47,83.0,6,2,3,82.0,73.1,71.9,92.4,76.6,4.0,4.6
+STU-1077,Siddharth Reddy,Female,Electronics & Comm,4th Year,7,8.27,0,79.0,92.5,96.4,42,82.6,7,3,1,80.8,96.9,76.2,75.5,80.5,4.7,4.5
+STU-1078,Pooja Singh,Male,Computer Science,1st Year,1,9.47,0,79.6,81.2,82.7,41,82.2,15,3,0,94.2,75.3,86.3,93.1,85.4,4.8,4.3
+STU-1079,Ananya Deshmukh,Male,Mechanical Engg,1st Year,2,8.43,0,85.1,84.8,96.3,50,85.1,11,6,1,90.6,83.4,87.0,73.1,72.1,4.7,3.9
+STU-1080,Vikram Patel,Female,Computer Science,1st Year,2,8.75,0,81.0,84.4,85.2,34,93.8,4,1,0,41.8,46.2,55.8,59.0,50.4,3.9,4.4
+STU-1081,Manish Kumar,Female,Mechanical Engg,1st Year,1,8.56,0,77.8,91.7,95.2,33,99.2,10,0,3,86.9,85.5,88.7,93.1,86.4,4.0,4.2
+STU-1082,Akash Menon,Male,Computer Science,1st Year,2,5.06,2,49.1,66.9,54.8,6,46.9,2,1,0,37.1,42.8,47.2,51.9,53.4,2.5,3.3
+STU-1083,Rahul Kumar,Female,Mechanical Engg,2nd Year,3,7.81,0,75.9,84.8,91.3,44,93.7,6,1,0,52.3,36.6,59.4,62.3,52.7,4.1,3.9
+STU-1084,Pooja Sharma,Female,Electronics & Comm,3rd Year,6,8.93,0,95.1,92.1,94.9,39,83.2,13,0,1,97.8,71.0,80.0,92.8,75.1,4.5,4.7
+STU-1085,Simran Verma,Male,Mechanical Engg,1st Year,1,8.91,0,92.5,80.7,94.7,38,95.0,8,2,3,82.6,89.7,92.2,87.4,79.8,4.3,4.6
+STU-1086,Rahul Joshi,Female,Information Tech,4th Year,8,8.85,0,76.6,88.8,87.2,33,89.5,6,3,0,52.2,48.7,46.9,67.4,59.0,3.9,3.6
+STU-1087,Saanvi Nair,Male,Electronics & Comm,4th Year,8,6.82,0,57.3,81.0,74.2,34,61.3,4,4,1,57.7,63.2,71.8,64.5,66.4,3.8,3.4
+STU-1088,Ishaan Menon,Male,Computer Science,3rd Year,5,6.9,1,68.3,83.9,84.1,33,65.2,6,1,0,66.1,63.7,73.7,70.0,67.6,3.2,4.1
+STU-1089,Naveen Sharma,Female,Computer Science,4th Year,8,7.6,0,78.8,82.0,86.0,39,88.1,5,0,0,45.1,35.8,42.7,59.1,55.0,4.4,4.4
+STU-1090,Kavya Joshi,Male,Computer Science,2nd Year,4,8.11,0,76.1,91.8,91.6,45,90.6,4,2,2,94.7,79.8,90.7,92.5,85.6,4.4,5.0
+STU-1091,Arjun Patel,Male,Information Tech,1st Year,2,8.48,0,96.8,98.4,85.1,25,83.0,7,1,3,81.3,84.3,89.8,86.3,85.3,4.1,4.8
+STU-1092,Ishaan Iyer,Female,Information Tech,4th Year,7,9.14,0,84.5,92.4,91.3,48,95.7,9,2,1,77.2,72.9,78.3,91.7,83.0,4.0,4.9
+STU-1093,Rohan Bhat,Female,Information Tech,3rd Year,5,8.27,0,91.7,91.6,80.4,44,76.9,4,3,0,51.8,49.0,48.8,66.6,67.4,4.0,4.0
+STU-1094,Vikram Gupta,Female,Computer Science,1st Year,2,7.16,0,72.4,78.0,72.8,34,71.2,2,3,1,59.6,58.7,72.9,69.1,58.0,3.6,3.8
+STU-1095,Meera Gupta,Female,Electronics & Comm,2nd Year,3,9.73,0,97.6,92.7,92.8,28,99.9,13,2,2,94.9,70.4,88.3,76.9,91.5,4.8,4.4
+STU-1096,Meera Chowdhury,Male,Electronics & Comm,2nd Year,3,9.1,0,80.8,95.6,97.0,54,83.5,8,1,3,75.4,86.4,80.9,87.0,88.5,4.8,4.8
+STU-1097,Karan Patel,Male,Mechanical Engg,1st Year,2,8.01,0,75.1,93.0,84.8,44,84.5,11,1,2,80.1,70.1,89.1,82.6,89.0,4.9,4.1
+STU-1098,Krishna Patel,Female,Computer Science,3rd Year,6,9.1,0,75.0,83.2,88.6,38,89.2,7,1,2,70.5,80.6,70.7,97.1,73.2,4.6,5.0
+STU-1099,Aditya Joshi,Male,Computer Science,4th Year,8,7.38,1,65.6,79.4,79.6,33,77.5,6,0,0,56.6,60.3,55.9,67.6,60.7,4.0,3.3
+STU-1100,Aadhya Gupta,Female,Electronics & Comm,4th Year,8,7.22,1,66.3,83.4,73.3,30,64.8,1,1,0,73.2,66.5,68.2,62.3,59.4,3.7,3.9
+STU-1101,Krishna Gupta,Female,Electronics & Comm,1st Year,2,8.99,0,84.7,87.8,86.5,31,93.2,7,4,0,51.4,45.1,54.6,58.6,59.2,3.9,3.8
+STU-1102,Aditya Chowdhury,Female,Mechanical Engg,2nd Year,3,9.29,0,89.6,81.3,86.3,41,80.8,9,0,0,77.8,97.1,78.3,84.5,74.9,4.5,4.1
+STU-1103,Ananya Nair,Male,Information Tech,1st Year,2,9.47,0,81.6,88.8,89.5,54,87.9,9,2,1,79.7,83.2,91.9,84.8,87.6,5.0,4.0
+STU-1104,Aarav Kumar,Female,Electronics & Comm,4th Year,8,7.29,1,66.6,74.6,84.8,21,79.1,5,0,1,60.9,56.2,67.1,69.7,57.3,3.6,3.7
+STU-1105,Anushka Iyer,Male,Electronics & Comm,4th Year,8,8.78,0,76.2,81.2,85.3,26,83.3,6,3,0,51.4,50.5,53.0,68.1,63.0,3.9,4.3
+STU-1106,Kriti Patel,Female,Information Tech,4th Year,8,6.21,0,60.6,77.3,80.4,19,62.5,1,0,0,73.8,56.3,62.7,72.5,63.1,3.3,3.7
+STU-1107,Kriti Chowdhury,Female,Mechanical Engg,3rd Year,5,8.96,0,90.6,86.5,84.8,35,75.2,4,3,0,43.0,42.3,44.6,68.4,56.2,3.9,3.5
+STU-1108,Anushka Patel,Male,Electronics & Comm,3rd Year,5,8.62,0,90.6,91.5,88.2,44,91.6,9,2,1,84.2,96.9,79.6,73.0,70.8,4.3,4.0
+STU-1109,Sai Bose,Male,Information Tech,2nd Year,3,9.47,0,83.6,89.0,89.6,42,96.5,4,2,0,97.2,91.2,94.5,84.4,83.3,4.0,4.1
+STU-1110,Pooja Pillai,Male,Information Tech,2nd Year,4,9.22,0,86.7,92.9,86.0,35,91.2,6,3,1,91.9,90.0,77.5,80.5,89.8,4.4,4.7
+STU-1111,Ayaan Iyer,Male,Computer Science,4th Year,8,8.26,1,95.9,93.7,91.1,36,80.8,9,3,2,83.0,97.4,82.1,94.5,84.7,4.3,4.1
+STU-1112,Siddharth Bose,Male,Electronics & Comm,4th Year,7,8.52,0,95.6,88.7,89.5,39,95.3,7,3,0,87.9,77.0,76.0,80.1,76.4,3.8,5.0
+STU-1113,Manish Kulkarni,Female,Mechanical Engg,2nd Year,3,7.86,0,87.1,92.0,93.0,36,96.1,11,6,0,71.2,78.3,85.8,73.8,70.1,4.9,4.8
+STU-1114,Krishna Sharma,Female,Electronics & Comm,2nd Year,3,6.31,0,56.5,76.1,77.3,20,66.1,3,3,0,75.0,68.6,57.3,72.3,59.8,3.7,3.3
+STU-1115,Tanvi Mishra,Female,Electronics & Comm,3rd Year,6,9.53,0,81.7,82.9,86.5,46,86.4,8,3,0,81.7,90.8,74.7,90.7,91.7,4.3,4.8
+STU-1116,Sneha Menon,Female,Information Tech,4th Year,8,9.45,0,87.7,89.9,84.4,47,94.4,15,2,1,91.0,77.5,70.0,85.3,71.2,4.1,4.6
+STU-1117,Pooja Menon,Female,Computer Science,2nd Year,3,6.08,1,56.4,64.5,52.6,10,51.1,1,1,0,52.7,30.6,49.3,36.8,48.7,2.8,2.9
+STU-1118,Karan Joshi,Male,Electronics & Comm,1st Year,1,9.55,0,81.4,82.5,93.5,49,86.0,8,3,1,94.2,82.3,72.8,88.5,89.3,3.8,4.8
+STU-1119,Ananya Menon,Male,Computer Science,4th Year,7,9.24,0,95.0,93.9,93.0,28,93.6,16,0,2,90.6,97.2,71.3,89.7,81.7,4.5,3.9
+STU-1120,Naveen Mishra,Male,Computer Science,2nd Year,4,8.38,0,79.5,92.5,80.2,24,93.2,3,0,0,42.2,42.0,50.9,61.1,59.6,4.3,3.5
+STU-1121,Neha Reddy,Female,Mechanical Engg,2nd Year,4,9.32,0,81.1,84.2,84.2,36,82.5,8,1,1,82.2,78.0,78.5,91.2,75.6,4.6,4.5
+STU-1122,Kavya Rao,Male,Mechanical Engg,1st Year,1,9.56,0,87.6,95.8,92.3,48,89.2,9,5,0,88.8,85.5,94.8,78.2,83.3,4.6,4.6
+STU-1123,Harsh Gupta,Male,Electronics & Comm,2nd Year,4,9.04,0,94.5,86.0,86.7,37,96.2,11,5,2,89.3,88.7,93.3,84.9,75.8,3.9,4.3
+STU-1124,Kriti Verma,Male,Mechanical Engg,1st Year,2,9.16,0,81.3,95.3,89.8,34,83.6,18,0,0,82.5,74.3,71.2,93.9,94.5,4.8,4.8
+STU-1125,Priyanka Chowdhury,Female,Computer Science,4th Year,8,6.1,4,51.4,67.6,61.4,12,41.5,1,0,0,31.8,37.4,49.6,38.8,50.9,3.3,3.5
+STU-1126,Kavya Verma,Female,Electronics & Comm,4th Year,7,8.95,0,88.1,84.6,83.5,30,88.3,4,6,0,49.9,48.7,42.8,67.1,53.2,4.2,4.2
+STU-1127,Rohan Iyer,Male,Computer Science,1st Year,1,7.27,0,72.1,72.3,87.8,16,79.9,1,2,3,63.2,70.8,60.0,67.6,62.2,3.9,3.4
+STU-1128,Tanvi Mishra,Female,Mechanical Engg,3rd Year,6,8.93,0,87.8,83.4,94.3,41,92.3,6,1,0,52.9,44.6,49.7,59.9,65.1,3.9,3.9
+STU-1129,Reyansh Kumar,Male,Computer Science,2nd Year,4,8.9,0,90.1,88.2,83.1,27,78.7,4,1,0,51.4,41.2,47.3,68.2,58.3,3.9,4.2
+STU-1130,Swati Verma,Male,Mechanical Engg,4th Year,8,9.45,0,85.7,80.9,86.9,37,80.8,17,3,2,75.7,68.3,80.9,95.0,71.3,4.0,4.2
+STU-1131,Swati Bose,Male,Computer Science,1st Year,1,8.54,0,90.2,92.3,83.8,38,78.6,7,3,0,53.7,44.2,44.7,60.7,57.5,4.4,3.5
+STU-1132,Varun Gupta,Male,Electronics & Comm,4th Year,8,8.76,0,96.8,92.0,84.2,29,82.1,4,4,0,72.8,92.1,73.1,75.3,91.3,4.2,3.8
+STU-1133,Dev Gupta,Male,Information Tech,2nd Year,4,9.16,0,89.6,90.5,90.9,34,83.7,9,2,0,54.2,47.5,48.9,55.4,65.1,3.8,4.1
+STU-1134,Aadhya Verma,Male,Electronics & Comm,4th Year,8,8.7,0,88.9,88.2,94.5,38,83.6,6,2,0,54.4,44.4,49.1,57.0,65.6,3.9,3.8
+STU-1135,Pooja Verma,Female,Information Tech,3rd Year,5,9.39,0,89.4,90.9,96.2,43,92.6,7,1,1,78.6,78.6,85.5,80.7,88.3,4.3,3.9
+STU-1136,Siddharth Menon,Female,Computer Science,3rd Year,6,8.46,0,83.6,97.9,92.9,46,94.7,10,3,1,82.1,97.4,71.7,85.5,74.5,5.0,3.9
+STU-1137,Arjun Menon,Female,Mechanical Engg,1st Year,1,8.49,0,81.1,83.9,90.2,40,92.6,11,3,0,96.6,76.9,72.3,87.6,85.6,4.6,4.1
+STU-1138,Varun Patel,Female,Electronics & Comm,3rd Year,6,8.7,0,88.4,90.0,86.2,26,97.3,4,2,0,96.3,68.2,89.3,88.3,79.3,3.9,4.6
+STU-1139,Vihaan Singh,Male,Computer Science,4th Year,7,9.13,0,81.8,92.6,82.8,25,94.5,2,2,0,56.0,36.4,56.5,67.9,64.7,4.2,3.9
+STU-1140,Meera Deshmukh,Male,Computer Science,1st Year,2,8.69,0,78.5,89.8,92.3,34,89.8,8,0,0,46.4,35.3,43.4,68.7,56.4,4.1,3.7
+STU-1141,Siddharth Rao,Female,Information Tech,2nd Year,4,8.47,0,83.8,89.4,86.8,48,84.0,13,3,2,92.4,78.0,91.6,95.8,91.5,3.8,4.7
+STU-1142,Vivaan Rao,Male,Mechanical Engg,2nd Year,4,8.8,0,78.3,94.9,89.1,46,95.7,13,0,1,71.6,82.7,93.2,74.7,89.1,4.3,4.6
+STU-1143,Aarav Nair,Female,Computer Science,4th Year,7,7.94,0,90.3,96.8,95.8,44,88.9,7,2,2,79.9,92.9,89.7,80.0,92.8,4.9,4.2
+STU-1144,Simran Kulkarni,Male,Computer Science,1st Year,1,8.59,0,86.6,83.7,96.6,34,97.7,15,4,1,89.4,74.9,72.9,76.3,70.0,4.7,4.7
+STU-1145,Anushka Sharma,Female,Computer Science,2nd Year,3,9.26,0,77.8,92.1,91.9,26,90.4,15,2,1,91.0,85.2,94.7,82.8,88.8,4.8,4.6
+STU-1146,Akash Bose,Female,Computer Science,1st Year,2,8.46,0,88.2,80.4,98.1,40,92.1,19,4,5,94.0,88.2,80.2,95.0,75.5,4.7,4.9
+STU-1147,Priyanka Gupta,Female,Mechanical Engg,1st Year,1,5.84,3,46.2,54.7,65.8,14,34.6,1,0,0,42.1,20.4,38.2,48.0,35.3,2.5,2.7
+STU-1148,Ayaan Nair,Female,Electronics & Comm,1st Year,2,9.74,0,89.9,81.4,88.4,37,99.8,7,3,1,71.9,79.1,81.6,90.8,86.4,4.7,3.8
+STU-1149,Vivaan Deshmukh,Male,Mechanical Engg,3rd Year,6,7.99,0,76.1,91.0,89.2,50,95.6,16,3,0,90.0,79.6,86.6,81.0,79.8,4.0,4.1
+STU-1150,Manish Patel,Male,Mechanical Engg,2nd Year,4,7.22,0,69.4,74.6,77.5,25,65.4,3,0,0,74.8,72.4,69.5,70.7,66.2,3.8,3.3
+STU-1151,Tanvi Menon,Female,Mechanical Engg,1st Year,2,8.9,0,89.6,94.2,85.8,54,85.4,15,4,5,90.9,72.5,75.4,84.1,76.6,4.3,4.9
+STU-1152,Pari Iyer,Female,Mechanical Engg,2nd Year,4,5.77,2,39.6,58.3,64.7,8,54.9,1,0,0,48.7,42.8,44.1,54.3,51.5,3.3,3.5
+STU-1153,Karan Joshi,Male,Computer Science,3rd Year,5,5.34,2,42.3,67.2,67.8,6,49.6,2,0,0,32.0,28.7,30.3,35.3,53.3,3.0,2.8
+STU-1154,Pari Rao,Female,Electronics & Comm,3rd Year,6,8.63,0,84.0,81.3,92.9,43,88.8,13,2,2,87.3,87.0,81.7,83.5,82.4,4.8,4.4
+STU-1155,Kriti Das,Male,Mechanical Engg,3rd Year,5,9.15,0,83.6,97.9,84.8,29,81.1,14,3,2,89.7,81.7,86.7,93.8,74.2,3.8,4.7
+STU-1156,Pari Chowdhury,Female,Information Tech,4th Year,8,9.62,0,96.9,96.8,91.9,41,85.5,7,2,2,76.5,95.5,85.4,78.4,87.3,4.5,4.4
+STU-1157,Karan Gupta,Male,Electronics & Comm,4th Year,7,9.59,0,97.4,88.8,96.4,54,82.6,15,3,1,80.8,70.1,75.3,78.0,81.7,4.1,3.9
+STU-1158,Pari Iyer,Female,Electronics & Comm,1st Year,2,8.13,0,75.2,83.0,85.5,32,84.4,11,1,2,75.9,92.3,73.7,80.9,91.6,4.0,3.9
+STU-1159,Vivaan Rao,Female,Information Tech,4th Year,8,6.36,1,64.6,72.2,81.2,30,63.5,7,0,0,62.0,71.4,56.1,65.1,64.2,3.9,3.8
+STU-1160,Saanvi Kumar,Male,Electronics & Comm,2nd Year,3,7.89,0,87.9,94.5,98.0,50,83.9,5,5,1,89.6,80.5,82.8,95.5,92.2,4.8,4.4
+STU-1161,Ananya Das,Male,Information Tech,4th Year,8,8.91,0,90.2,82.7,91.7,52,83.3,6,1,2,97.2,85.1,73.6,81.7,89.9,4.2,3.9
+STU-1162,Manish Iyer,Female,Mechanical Engg,1st Year,1,8.24,0,95.1,84.7,86.5,37,92.5,13,4,1,83.6,95.6,71.0,79.6,75.2,4.1,4.9
+STU-1163,Simran Iyer,Male,Mechanical Engg,1st Year,1,4.51,2,44.9,59.9,70.0,3,39.9,1,0,0,46.9,41.4,30.9,47.9,39.5,3.0,3.0
+STU-1164,Manish Bhat,Female,Computer Science,1st Year,2,9.66,1,93.3,94.3,85.7,39,89.3,16,2,0,80.6,92.0,79.8,91.5,73.1,4.7,4.1
+STU-1165,Dev Kumar,Male,Mechanical Engg,2nd Year,4,7.93,0,94.0,90.0,95.2,27,88.4,11,0,3,87.1,88.4,77.9,94.1,93.7,4.9,4.7
+STU-1166,Tanvi Deshmukh,Male,Mechanical Engg,2nd Year,3,7.82,0,91.2,91.8,98.8,50,85.6,17,1,1,93.4,96.1,74.6,81.7,93.2,3.9,3.9
+STU-1167,Kavya Chowdhury,Male,Mechanical Engg,3rd Year,6,5.1,4,39.4,48.1,51.2,10,48.8,1,0,0,37.4,23.2,48.8,50.7,44.2,3.2,2.8
+STU-1168,Varun Menon,Female,Mechanical Engg,3rd Year,6,8.43,0,81.2,83.6,85.1,50,92.1,7,3,1,78.4,85.9,80.8,76.3,72.9,4.5,4.9
+STU-1169,Pooja Reddy,Male,Information Tech,1st Year,2,7.25,0,68.3,76.2,80.1,34,60.2,7,1,0,56.7,62.2,56.8,67.9,59.5,4.1,4.0
+STU-1170,Akash Pillai,Female,Electronics & Comm,4th Year,8,7.68,0,77.9,88.5,84.4,41,83.5,7,2,0,46.3,35.9,42.9,65.4,58.2,4.0,4.1
+STU-1171,Aarav Joshi,Female,Information Tech,1st Year,1,9.44,0,83.1,86.9,95.7,41,91.1,16,1,2,80.7,92.3,90.6,82.0,81.5,4.2,4.9
+STU-1172,Sai Iyer,Female,Information Tech,1st Year,1,6.84,0,64.0,76.1,72.9,32,79.4,1,2,0,66.8,70.5,55.9,69.8,68.0,3.4,3.9
+STU-1173,Akash Deshmukh,Male,Electronics & Comm,2nd Year,3,8.69,0,87.2,90.2,86.7,39,87.9,7,1,1,76.2,83.5,87.8,74.5,77.9,5.0,4.1
+STU-1174,Simran Mishra,Female,Mechanical Engg,3rd Year,6,6.76,0,61.0,74.3,71.6,20,70.6,5,2,1,55.2,73.9,59.7,59.8,70.4,3.7,3.6
+STU-1175,Pari Kumar,Female,Mechanical Engg,1st Year,1,7.28,0,71.8,78.4,84.9,25,79.6,4,1,0,74.7,71.4,63.8,60.3,62.6,3.8,3.7
+STU-1176,Aditya Gupta,Female,Mechanical Engg,3rd Year,6,9.18,0,96.6,83.4,92.6,39,88.4,7,2,0,81.7,90.7,92.4,74.2,79.8,3.9,3.8
+STU-1177,Aadhya Patel,Female,Mechanical Engg,2nd Year,4,8.27,0,94.2,98.5,84.3,54,97.4,15,0,1,81.8,68.3,91.4,91.0,93.7,4.7,4.2
+STU-1178,Saanvi Mishra,Female,Electronics & Comm,2nd Year,4,7.61,0,84.1,88.5,91.3,34,85.3,8,0,0,47.7,49.2,56.5,58.4,54.1,4.5,4.3
+STU-1179,Kavya Reddy,Female,Information Tech,1st Year,1,9.54,0,79.9,94.3,82.9,52,95.2,16,3,3,74.2,76.0,79.0,82.6,87.0,3.9,3.8
+STU-1180,Meera Verma,Male,Electronics & Comm,2nd Year,4,8.32,0,95.6,85.6,85.9,43,93.0,7,5,2,77.6,70.4,94.8,76.1,94.7,5.0,4.8
+STU-1181,Naveen Pillai,Male,Computer Science,4th Year,8,8.67,0,89.2,92.6,90.5,40,84.0,8,2,0,86.9,83.7,76.3,84.2,82.3,4.0,4.6
+STU-1182,Reyansh Verma,Female,Mechanical Engg,4th Year,8,6.27,0,56.8,84.5,72.4,17,73.5,1,2,0,63.7,57.9,55.4,65.9,73.9,3.5,3.9
+STU-1183,Pooja Kulkarni,Male,Information Tech,1st Year,2,7.04,0,73.9,72.8,80.7,26,66.6,4,0,1,74.4,64.7,70.5,69.4,69.5,3.7,3.8
+STU-1184,Aadhya Verma,Male,Electronics & Comm,4th Year,7,8.95,0,86.5,81.3,83.5,42,82.5,5,3,1,89.5,95.0,89.8,89.6,87.0,4.9,4.2
+STU-1185,Harsh Mishra,Male,Mechanical Engg,3rd Year,5,9.12,0,88.6,80.3,94.4,40,98.1,10,2,0,93.3,95.6,86.2,74.7,80.1,4.7,4.7
+STU-1186,Pari Rao,Male,Computer Science,3rd Year,5,8.51,0,75.3,90.3,96.5,51,96.5,8,1,1,87.0,79.7,76.0,74.5,77.9,3.9,4.0
+STU-1187,Vikram Rao,Male,Information Tech,2nd Year,4,7.39,1,70.4,74.9,75.5,31,69.8,4,1,0,69.5,57.6,66.6,69.8,69.0,4.0,4.1
+STU-1188,Meera Nair,Male,Computer Science,3rd Year,5,9.15,0,82.1,89.3,95.5,35,83.9,7,3,1,88.3,93.0,94.4,84.3,71.7,3.9,4.2
+STU-1189,Diya Nair,Female,Electronics & Comm,3rd Year,6,6.68,1,67.4,72.3,87.6,22,71.7,6,1,3,62.8,73.8,65.6,70.5,73.5,4.2,4.0
+STU-1190,Vihaan Rao,Female,Computer Science,3rd Year,6,8.41,0,87.7,95.0,87.4,35,99.4,13,2,0,71.7,83.0,72.7,75.0,93.5,4.8,4.3
+STU-1191,Neha Pillai,Female,Information Tech,3rd Year,5,5.43,2,44.1,57.1,58.3,8,46.2,1,0,0,34.5,27.3,40.5,37.2,52.4,2.6,2.7
+STU-1192,Varun Reddy,Male,Mechanical Engg,3rd Year,6,7.92,0,88.7,96.6,91.8,53,85.1,7,1,2,78.3,72.3,73.8,83.3,84.9,3.9,4.9
+STU-1193,Tanvi Kulkarni,Male,Computer Science,4th Year,8,7.96,0,89.5,95.7,95.3,45,83.9,16,3,1,81.4,83.5,84.5,96.3,86.8,4.4,4.8
+STU-1194,Isha Singh,Male,Information Tech,1st Year,2,9.43,0,78.0,88.4,92.9,45,82.3,5,3,1,93.0,92.8,84.7,81.2,90.0,4.5,4.8
+STU-1195,Sai Joshi,Male,Electronics & Comm,1st Year,1,5.03,4,47.4,60.1,54.4,8,42.0,1,0,0,31.5,36.9,45.3,45.5,39.5,3.0,2.6
+STU-1196,Dev Bose,Male,Electronics & Comm,2nd Year,4,7.92,0,85.2,85.8,92.8,38,92.7,9,1,0,49.1,36.1,43.3,63.6,60.2,4.5,4.0
+STU-1197,Ananya Singh,Male,Electronics & Comm,2nd Year,4,8.17,0,89.8,80.9,98.1,38,89.1,4,1,0,73.5,83.6,76.1,81.3,94.7,4.6,4.9
+STU-1198,Anushka Mishra,Male,Information Tech,4th Year,8,7.01,0,56.1,75.0,83.8,23,68.3,4,1,1,77.3,66.0,74.3,60.0,64.8,3.4,3.3
+STU-1199,Anushka Bose,Female,Information Tech,2nd Year,3,7.69,0,80.6,91.7,86.6,34,82.0,4,4,0,48.8,45.7,55.3,64.2,50.3,4.0,4.2
+STU-1200,Priyanka Sharma,Male,Mechanical Engg,3rd Year,6,7.24,0,68.1,72.1,77.5,30,73.5,6,2,1,58.1,58.2,74.0,73.0,73.1,4.2,3.4
+STU-1201,Pooja Pillai,Female,Electronics & Comm,3rd Year,5,8.64,0,88.7,90.9,84.7,49,84.0,14,3,2,77.3,88.8,84.2,92.7,88.4,4.5,4.4
+STU-1202,Pooja Bhat,Male,Information Tech,1st Year,2,9.0,0,81.6,80.1,90.4,49,84.9,9,0,2,83.2,70.7,85.6,86.3,80.2,4.4,4.9
+STU-1203,Swati Mishra,Male,Mechanical Engg,2nd Year,3,8.98,0,89.4,95.4,92.4,46,98.3,4,2,2,86.6,85.7,71.7,93.6,74.4,4.7,4.7
+STU-1204,Anushka Bhat,Male,Computer Science,3rd Year,5,8.16,0,89.7,84.6,84.4,36,75.4,4,6,0,53.2,38.5,44.4,64.6,55.8,3.8,3.6
+STU-1205,Diya Patel,Male,Computer Science,2nd Year,3,4.62,2,43.2,66.2,50.8,8,37.8,2,1,0,32.1,30.8,37.5,52.7,38.0,2.4,2.9
+STU-1206,Riya Mishra,Female,Computer Science,1st Year,2,6.89,0,64.6,74.7,77.7,34,74.9,3,1,0,76.2,71.2,71.5,71.5,61.5,4.0,3.3
+STU-1207,Meera Nair,Female,Electronics & Comm,2nd Year,3,9.38,0,81.2,95.4,83.4,40,96.2,13,6,2,88.7,74.9,76.1,80.0,71.6,4.0,3.8
+STU-1208,Tanvi Kulkarni,Male,Information Tech,4th Year,7,9.3,0,96.8,85.9,96.6,33,99.7,16,4,0,90.1,82.3,91.2,82.0,74.2,4.8,4.5
+STU-1209,Swati Iyer,Male,Electronics & Comm,3rd Year,5,6.75,1,70.8,80.6,71.9,34,69.4,5,1,0,58.2,67.2,61.1,63.5,56.4,3.5,4.1
+STU-1210,Ayaan Bose,Male,Information Tech,3rd Year,5,8.01,0,88.2,85.9,82.1,39,85.9,2,0,0,44.6,44.0,45.1,57.5,58.3,3.8,3.6
+STU-1211,Neha Nair,Female,Mechanical Engg,3rd Year,6,8.31,0,82.7,93.0,88.0,39,83.4,6,4,0,45.0,35.8,58.8,64.9,63.4,4.0,4.3
+STU-1212,Arjun Bhat,Female,Mechanical Engg,3rd Year,5,8.47,0,83.1,92.9,81.6,30,93.3,9,3,0,55.8,47.3,46.2,65.6,55.5,4.0,3.6
+STU-1213,Harsh Sharma,Female,Information Tech,1st Year,1,6.24,2,59.4,70.8,73.4,31,67.8,2,3,2,55.7,65.7,55.8,71.7,61.4,3.8,3.5
+STU-1214,Aarav Reddy,Female,Computer Science,4th Year,8,7.99,0,82.9,80.1,88.9,43,82.4,9,2,1,76.5,70.0,74.7,86.4,77.3,4.3,4.3
+STU-1215,Rohan Rao,Female,Information Tech,1st Year,1,8.46,0,96.9,81.1,87.1,41,86.3,10,2,1,72.0,95.3,74.8,93.4,83.6,3.9,4.9
+STU-1216,Karan Kulkarni,Female,Electronics & Comm,1st Year,2,7.52,0,83.7,91.5,94.0,30,75.3,4,2,0,45.2,41.4,49.1,63.2,52.9,4.4,3.7
+STU-1217,Riya Iyer,Female,Information Tech,2nd Year,4,6.69,1,57.2,76.0,84.3,20,68.3,7,1,0,77.3,69.7,69.0,72.5,57.3,3.9,3.7
+STU-1218,Siddharth Kulkarni,Male,Information Tech,3rd Year,6,9.35,0,89.4,83.6,84.5,33,90.6,10,3,1,87.8,78.7,73.7,87.5,90.4,4.3,4.0
+STU-1219,Ishaan Pillai,Male,Electronics & Comm,2nd Year,3,9.09,0,91.0,86.9,96.0,41,83.9,14,2,2,70.7,88.7,77.9,73.4,85.2,4.1,4.3
+STU-1220,Vikram Kumar,Female,Mechanical Engg,1st Year,1,6.48,1,62.5,73.7,84.6,18,78.5,5,3,0,61.5,56.6,72.5,70.4,61.0,3.8,3.4
+STU-1221,Aadhya Deshmukh,Male,Electronics & Comm,4th Year,8,8.8,0,88.3,81.0,87.3,51,89.3,8,2,1,87.5,92.9,74.8,95.8,83.8,4.2,4.3
+STU-1222,Aditya Rao,Male,Electronics & Comm,2nd Year,3,9.77,0,88.8,86.4,91.3,48,96.9,17,1,0,80.8,85.5,81.6,88.1,82.0,4.6,4.1
+STU-1223,Tanvi Das,Male,Computer Science,2nd Year,3,8.77,0,97.2,93.6,98.3,38,96.1,4,4,0,75.8,68.0,71.0,97.4,76.1,4.6,4.8
+STU-1224,Vivaan Bhat,Female,Electronics & Comm,2nd Year,3,6.79,1,71.3,76.3,75.6,26,73.0,6,1,0,74.4,67.3,61.5,61.3,66.1,3.8,3.4
+STU-1225,Pooja Kulkarni,Male,Electronics & Comm,1st Year,1,6.53,1,69.1,81.8,72.1,17,63.9,1,4,1,61.1,68.9,58.9,59.6,65.6,4.0,3.3
+STU-1226,Aditya Pillai,Male,Mechanical Engg,3rd Year,6,8.15,0,91.4,97.1,91.9,43,98.5,4,2,1,77.0,80.2,77.0,75.5,88.2,4.8,4.1
+STU-1227,Swati Joshi,Female,Computer Science,2nd Year,4,6.73,0,65.6,75.2,86.8,21,65.8,2,1,0,62.7,73.4,55.2,67.4,69.8,3.7,3.3
+STU-1228,Ayaan Nair,Male,Computer Science,2nd Year,3,8.77,0,76.7,82.0,96.2,40,82.3,13,2,1,71.0,69.6,90.9,75.1,71.1,4.3,4.8
+STU-1229,Anushka Bose,Male,Computer Science,2nd Year,4,8.7,0,88.1,86.3,87.4,53,97.7,8,5,1,87.7,81.7,82.1,91.7,77.0,4.2,4.9
+STU-1230,Ayaan Menon,Male,Mechanical Engg,1st Year,2,6.86,0,61.5,82.8,80.1,26,78.1,4,2,0,70.7,73.7,66.5,60.1,66.6,4.0,3.6
+STU-1231,Pooja Mishra,Male,Electronics & Comm,2nd Year,4,6.95,0,60.9,73.0,86.4,22,68.0,3,1,1,60.2,67.3,55.8,63.5,64.4,3.3,4.2
+STU-1232,Akash Mishra,Male,Electronics & Comm,4th Year,8,8.81,0,82.2,88.5,80.3,44,75.2,3,2,0,49.7,50.5,49.0,67.4,52.4,4.5,4.2
+STU-1233,Aadhya Rao,Female,Information Tech,4th Year,7,6.6,1,69.5,83.9,73.7,29,74.8,5,1,0,77.0,73.4,55.9,63.8,63.1,3.4,3.8
+STU-1234,Krishna Menon,Male,Electronics & Comm,2nd Year,3,6.98,0,66.3,77.3,72.4,32,74.8,2,1,0,63.5,68.3,57.4,74.2,72.3,3.8,3.9
+STU-1235,Tanvi Deshmukh,Female,Information Tech,3rd Year,6,7.95,0,88.5,84.9,97.9,32,93.2,18,5,1,90.1,81.3,93.5,79.7,81.9,4.7,4.6
+STU-1236,Saanvi Reddy,Male,Mechanical Engg,3rd Year,6,9.45,0,76.3,98.5,90.7,39,90.1,8,3,2,76.4,73.0,78.3,96.4,78.6,5.0,4.4
+STU-1237,Ananya Singh,Male,Information Tech,2nd Year,4,9.22,1,76.2,81.8,94.2,31,92.7,17,0,0,91.7,72.0,81.7,87.8,80.7,3.8,4.7
+STU-1238,Siddharth Mishra,Female,Mechanical Engg,1st Year,2,8.67,0,86.0,87.4,97.1,25,95.7,14,5,1,86.2,76.5,77.0,82.5,95.0,3.9,4.5
+STU-1239,Akash Patel,Male,Electronics & Comm,1st Year,2,4.33,1,37.7,65.4,59.4,8,39.8,0,0,0,52.7,20.2,46.2,54.0,36.8,2.4,3.6
+STU-1240,Sneha Gupta,Male,Electronics & Comm,3rd Year,6,8.7,0,91.9,98.9,86.9,51,84.7,10,4,1,85.2,88.8,82.9,97.7,85.3,4.2,4.7
+STU-1241,Naveen Deshmukh,Male,Electronics & Comm,4th Year,8,7.91,0,75.6,85.0,87.7,38,81.8,5,1,0,49.1,39.4,42.2,64.7,59.2,4.2,4.4
+STU-1242,Karan Menon,Male,Electronics & Comm,1st Year,1,6.49,0,72.6,79.9,77.0,20,65.2,1,1,2,63.0,72.9,74.3,65.5,61.4,3.7,3.9
+STU-1243,Pooja Kulkarni,Female,Computer Science,2nd Year,3,7.58,0,81.6,85.3,84.7,31,94.0,5,1,0,57.5,42.0,50.0,63.6,67.7,4.0,4.1
+STU-1244,Manish Pillai,Female,Electronics & Comm,3rd Year,5,9.15,0,88.7,94.1,85.6,36,93.7,9,3,1,75.6,78.4,85.5,86.2,73.1,4.1,4.1
+STU-1245,Sai Pillai,Male,Mechanical Engg,2nd Year,3,6.46,0,62.4,84.6,87.2,17,68.9,5,0,0,61.1,65.1,70.6,72.6,71.9,3.6,3.9
+STU-1246,Akash Deshmukh,Male,Computer Science,1st Year,2,7.82,0,82.6,93.2,95.0,39,82.7,6,5,3,91.1,85.0,76.9,84.3,78.3,4.5,4.9
+STU-1247,Ishaan Joshi,Female,Information Tech,3rd Year,6,7.85,0,81.8,97.7,84.1,44,86.5,5,3,0,78.5,86.6,77.5,95.4,85.7,4.3,3.8
+STU-1248,Ayaan Iyer,Male,Mechanical Engg,1st Year,2,7.17,0,70.7,71.3,85.6,33,65.9,2,1,1,57.4,66.7,64.8,66.9,68.3,3.5,4.1
+STU-1249,Priyanka Singh,Male,Mechanical Engg,4th Year,7,7.95,0,76.1,84.9,84.3,45,82.7,8,4,1,87.9,78.2,94.9,78.9,77.0,4.9,3.8
+STU-1250,Diya Sharma,Male,Electronics & Comm,3rd Year,6,9.75,0,93.9,92.3,93.0,27,90.8,15,3,2,82.9,69.7,80.7,84.2,93.2,4.6,4.2
